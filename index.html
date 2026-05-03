@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Craw web novel content</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="p-5">
+    <h1 class="text-3xl font-bold mb-5">
+      This a website using for personal interest
+    </h1>
+    <div class="space-y-2">
+      <div>
+        <label for="url">Enter the url:</label>
+        <input
+          class="border rounded-sm p-1 w-full max-w-[400px]"
+          id="url"
+          type="url"
+          placeholder="https://example.com"
+        />
+      </div>
+      <div>
+        <label for="">CSS query selector:</label>
+        <input
+          id="query"
+          class="border rounded-sm p-1 w-full max-w-[400px]"
+          type="text"
+          placeholder='span[style="font-weight: 400"]'
+        />
+      </div>
+      <button class="border rounded-sm p-1" onclick="retrieveContent()">
+        Crawl
+      </button>
+    </div>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
