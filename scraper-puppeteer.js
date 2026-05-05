@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer-core");
+const cheerio = require("cheerio");
 
 const TOKEN = "2URrCJdYkHC4KDM8b0bbf4ddfac0324d032a0c44e0e76ef4e";
 
@@ -8,33 +9,25 @@ async function scrapeContent(url, query) {
   try {
     const unblock = async (url) => {
       const response = await fetch(
-        `https://production-sfo.browserless.io/unblock?token=${TOKEN}&proxy=residential`,
+        `https://production-sfo.browserless.io/smart-scrape?token=${TOKEN}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            url: url,
-            browserWSEndpoint: true,
-            cookies: true,
-            ttl: 30000,
+            url,
+            formats: ["html"],
           }),
-        }
+        },
       );
       return await response.json();
     };
 
-    // Get the WebSocket endpoint after bot detection bypass
-    const { browserWSEndpoint } = await unblock(url);
+    const result = await unblock(url);
+    const html = cheerio.load(result.content);
 
-    // Connect to the browser
-    browser = await puppeteer.connect({
-      browserWSEndpoint: `${browserWSEndpoint}?token=${TOKEN}`,
-    });
-    const page = (await browser.pages())[0];
-
-    const texts = await page.$$eval(query, (els) =>
-      els.map((el) => el.innerText.trim())
-    );
+    const texts = html(query)
+      .map((i, el) => html(el).text())
+      .get();
 
     return texts.join("\n");
   } catch (error) {

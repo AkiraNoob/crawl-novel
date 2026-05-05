@@ -2,7 +2,7 @@
   const urlInput = document.getElementById("url");
   const queryInput = document.getElementById("query");
 
-  const defaultUrl = localStorage.getItem("url") || "";
+  const defaultUrl = localStorage.getItem("url") || "https://atlantisviendong.com/chuong-1-anh-da-dien-tu-lau-roi/";
   const defaultQuery =
     localStorage.getItem("query") || 'span[style="font-weight: 400"]';
 
@@ -25,7 +25,7 @@ function retrieveContent() {
     .then(async (data) => {
       if (data.success) {
         alert("success");
-        await navigator.clipboard.write(data.data);
+        await navigator.clipboard.writeText(data.data);
       } else {
         alert("Error: " + data.error);
       }
