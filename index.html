@@ -1,39 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Craw web novel content</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  </head>
-  <body class="p-5">
-    <h1 class="text-3xl font-bold mb-5">
-      This a website using for personal interest
-    </h1>
-    <div class="space-y-2">
-      <div>
-        <label for="url">Enter the url:</label>
-        <input
-          class="border rounded-sm p-1 w-full max-w-[400px]"
-          id="url"
-          type="url"
-          placeholder="https://example.com"
-        />
-      </div>
-      <div>
-        <label for="">CSS query selector:</label>
-        <input
-          id="query"
-          class="border rounded-sm p-1 w-full max-w-[400px]"
-          type="text"
-          placeholder='span[style="font-weight: 400"]'
-        />
-      </div>
-      <button class="border rounded-sm p-1" onclick="retrieveContent()">
-        Crawl
-      </button>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novel Crawler</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">📖</div>
+    <div>
+      <h1>Novel Crawler</h1>
+      <p id="header-url">No page loaded</p>
+    </div>
+    <div class="status-dot idle" id="status-dot" title="Idle"></div>
+  </div>
+
+  <!-- ══ TAB: CRAWL ══ -->
+  <form class="tab-panel active" id="tab-crawl">
+
+    <!-- Selector config (quick) -->
+    <div class="section">
+      <div class="section-title">Content Selector</div>
+      <label>URL*</label>
+      <input required type="url" id="url-selector" placeholder="https://example.com" />
+      <label>Content CSS selector*</label>
+      <input required type="text" id="quick-content-selector" placeholder=".chapter-content, #content, article p" />
     </div>
 
-    <script src="./index.js"></script>
-  </body>
+    <!-- Crawl settings -->
+    <!-- <div class="section">
+      <div class="section-title">Crawl Settings</div>
+      <div class="input-row">
+        <div>
+          <label>From chapters</label>
+          <input required type="number" id="from-chapters" min="1" max="9999" />
+        </div>
+        <div>
+          <label>To chapters</label>
+          <input required type="number" id="to-chapters" min="1" max="9999" />
+        </div>
+      </div>
+      <label>Novel title (for filename)</label>
+      <input type="text" id="novel-title" placeholder="Auto-detected from page…" />
+    </div> -->
+
+    <!-- Download format -->
+    <div class="section">
+      <div class="section-title">Output Format</div>
+      <div class="format-pills">
+        <div class="format-pill active" data-format="txt">TXT</div>
+        <div class="format-pill" data-format="md">Markdown</div>
+        <div class="format-pill" data-format="html">HTML</div>
+        <div class="format-pill" data-format="json">JSON</div>
+      </div>
+    </div>
+
+    <!-- Start button -->
+    <div class="section">
+      <button type="submit" class="btn-primary" id="btn-start">▶ Start Crawling</button>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn-secondary" id="btn-download" disabled>⬇ Download</button>
+        <button class="btn-danger" id="btn-stop" disabled>■ Stop</button>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- Progress section (shared across tabs) -->
+  <div class="progress-section" id="progress-section">
+    <div class="section-title">Progress</div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+    <div class="progress-stats">
+      <div>Chapter <span id="prog-current">0</span> / <span id="prog-total">?</span></div>
+      <div><span id="prog-words">0</span> words collected</div>
+    </div>
+    <div class="progress-log" id="progress-log"></div>
+  </div>
+
+  <!-- Chapters list section -->
+  <div class="chapters-section" id="chapters-section">
+    <div class="section-title" style="padding: 0 16px; padding-top:12px;">Collected Chapters</div>
+    <div class="chapter-list" id="chapter-list" style="padding: 0 16px 12px;"></div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+
 </html>
