@@ -461,20 +461,30 @@ select option {
 /* ── Download options ── */
 .format-pills {
   display: flex;
-  gap: 6px;
+  gap: 12px;
   flex-wrap: wrap;
   margin-top: 6px;
 }
 
-.format-pill {
-  padding: 4px 10px;
-  border-radius: 20px;
-  border: 1px solid #2e2e3e;
+.format-pills {
+  padding: 10px 10px;
   background: #1c1c26;
+  border: 1px solid #2e2e3e;
+  border-radius: 4px;
   color: #888;
   font-size: 11px;
   cursor: pointer;
   transition: all 0.15s;
+}
+
+.format-pills div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.format-pills label {
+  margin: 0
 }
 
 .format-pill.active {

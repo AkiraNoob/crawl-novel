@@ -21,7 +21,7 @@
   </div>
 
   <!-- ══ TAB: CRAWL ══ -->
-  <form class="tab-panel active" id="tab-crawl">
+  <form class="tab-panel active" id="crawl-form">
 
     <!-- Selector config (quick) -->
     <div class="section">
@@ -52,19 +52,26 @@
     <!-- Download format -->
     <div class="section">
       <div class="section-title">Output Format</div>
-      <div class="format-pills">
-        <div class="format-pill active" data-format="txt">TXT</div>
-        <div class="format-pill" data-format="md">Markdown</div>
-        <div class="format-pill" data-format="html">HTML</div>
-        <div class="format-pill" data-format="json">JSON</div>
-      </div>
+      <fieldset id="crawl-form-fieldset" form="crawl-form" class="format-pills">
+        <div>
+          <input type="radio" id="epub" name="format" value="epub">
+          <label for="epub">EPUB</label>
+        </div>
+        <div>
+          <input type="radio" id="pdf" name="format" value="pdf">
+          <label for="pdf">PDF</label>
+        </div>
+        <div>
+          <input type="radio" id="word" name="format" value="word">
+          <label for="word">WORD</label>
+        </div>
+      </fieldset>
     </div>
 
     <!-- Start button -->
     <div class="section">
-      <button type="submit" class="btn-primary" id="btn-start">▶ Start Crawling</button>
+        <button type="submit" class="btn-primary" id="btn-download" disabled>⬇ Download</button>
       <div class="btn-row" style="margin-top:8px;">
-        <button class="btn-secondary" id="btn-download" disabled>⬇ Download</button>
         <button class="btn-danger" id="btn-stop" disabled>■ Stop</button>
       </div>
     </div>
