@@ -11,10 +11,18 @@ class Parser {
    *
    * @param {string} url
    * @param {FileSavingStrategy} downloadStrategy
-   * @param {{startChapter: number, endChapter: number, title: string, cover: string}} options
+   * @param {{title: string, cover: string, [key: string]: any}} options
    */
   async execute(url, options) {
-    this._parser.execute(url, options);
+    return await this._parser.execute(url, options);
+  }
+
+  /**
+   * Get novel meta data
+   * @returns {Promise<{title: string, cover: string, chapterUrls: string[]}>}
+   */
+  async getMetaData(url) {
+    return await this._parser.getMetaData(url);
   }
 }
 

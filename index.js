@@ -1,26 +1,17 @@
 import { SOURCE_TYPE } from "./constants/index.js";
 
-(function intiation() {
-  const urlInput = document.getElementById("url-selector");
-  const queryInput = document.getElementById("quick-content-selector");
+//define global variables
+const abortController = new AbortController();
+const startBtn = document.getElementById("btn-start");
+const cancelBtn = document.getElementById("btn-stop");
+const crawlForm = document.getElementById("crawl-form");
+const btnLoadMetaData = document.getElementById("btn-load-meta-data");
+const urlSelector = document.getElementById("url-selector");
 
-  const defaultUrl =
-    localStorage.getItem("url-selector") ||
-    "https://atlantisviendong.com/chuong-1-anh-da-dien-tu-lau-roi/";
-  const defaultQuery =
-    localStorage.getItem("quick-content-selector") ||
-    'span[style="font-weight: 400"]';
-
-  urlInput.value = defaultUrl;
-  queryInput.value = defaultQuery;
-})();
+//define functions
 
 async function retrieveContent(abortSignal, startCallback, finallyCallback) {
-  const url = document.getElementById("url-selector").value;
-  const query = document.getElementById("quick-content-selector").value;
-
-  localStorage.setItem("url-selector", url);
-  localStorage.getItem("quick-content-selector", query);
+  const url = urlSelector.value;
 
   startCallback();
   fetch(`${window.location.origin}/crawl`, {
@@ -28,7 +19,7 @@ async function retrieveContent(abortSignal, startCallback, finallyCallback) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ url, query }),
+    body: JSON.stringify({ url }),
     signal: abortSignal,
   })
     .then((res) => res.json())
@@ -42,17 +33,53 @@ async function retrieveContent(abortSignal, startCallback, finallyCallback) {
     .finally(() => finallyCallback());
 }
 
-//
+async function retrieveSiteMetaData(
+  abortSignal,
+  startCallback,
+  finallyCallback
+) {
+  const url = urlSelector.value;
 
-const abortController = new AbortController();
-const startBtn = document.getElementById("btn-start");
-const cancelBtn = document.getElementById("btn-stop");
+  startCallback();
+  fetch(`${window.location.origin}/meta-data`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ url }),
+    signal: abortSignal,
+  })
+    .then((res) => res.json())
+    .then(async (data) => {
+      if (data.success) {
+        const { title, cover, ...options } = data.data;
+        localStorage.setItem("crawl_options", JSON.stringify(options));
+        if (title) document.getElementById("novel-title").value = title;
 
-cancelBtn.addEventListener("click", () =>
-  abortController.abort("Fetch cancel: User cancel"),
-);
+        if (cover) {
+          document.getElementById("novel-cover").value = cover;
+          const btn = document.getElementById("novel-cover-open-btn");
 
-startBtn.addEventListener("click", async (e) => {
+          btn.disabled = false;
+          btn.addEventListener("click", () => {
+            window.open(cover, "_blank");
+          });
+        }
+      } else {
+        alert("Error: " + data.error);
+      }
+    })
+    .finally(() => finallyCallback());
+}
+
+// DOM mutation
+urlSelector.addEventListener("change", async (e) => {
+  btnLoadMetaData.disabled = !e.target.value.trim();
+});
+
+crawlForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
   await retrieveContent(
     abortController.signal,
     () => {
@@ -62,6 +89,24 @@ startBtn.addEventListener("click", async (e) => {
     () => {
       startBtn.classList.remove("disabled");
       startBtn.disabled = false;
+    }
+  );
+});
+
+cancelBtn.addEventListener("click", () =>
+  abortController.abort("Fetch cancel: User cancel")
+);
+
+btnLoadMetaData.addEventListener("click", () => {
+  retrieveSiteMetaData(
+    abortController.signal,
+    () => {
+      btnLoadMetaData.disabled = true;
+      btnLoadMetaData.setAttribute("data-state", "loading");
     },
+    () => {
+      btnLoadMetaData.disabled = false;
+      btnLoadMetaData.setAttribute("data-state", "stale");
+    }
   );
 });

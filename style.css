@@ -90,7 +90,7 @@ body {
 
 /* ── Sections ── */
 .section {
-  padding: 12px 16px;
+  padding: 12px 0px;
   border-bottom: 1px solid #1e1e28;
 }
 
@@ -193,7 +193,7 @@ select option {
   padding: 0;
 }
 
-.selector-row .btn-remove:hover {
+.selector-row .btn-remove:not(:disabled):hover {
   background: #2e1c1c;
   border-color: #ef4444;
   color: #ef4444;
@@ -212,7 +212,7 @@ select option {
   margin-top: 2px;
 }
 
-.btn-add-selector:hover {
+.btn-add-selector:not(:disabled):hover {
   border-color: #7c5cfc;
   color: #7c5cfc;
 }
@@ -256,7 +256,7 @@ select option {
   margin-top: 6px;
 }
 
-.btn-test:hover {
+.btn-tes:not(:disabled)t:hover {
   border-color: #7c5cfc;
   color: #c4b5fd;
   background: #1a1626;
@@ -273,12 +273,10 @@ select option {
   padding: 9px 16px;
   cursor: pointer;
   width: 100%;
-  transition:
-    opacity 0.15s,
-    transform 0.1s;
+  transition: opacity 0.15s, transform 0.1s;
 }
 
-.btn-primary:hover:not(:disabled) {
+.btn-primary:not(:disabled):hover {
   opacity: 0.9;
 }
 
@@ -302,7 +300,7 @@ select option {
   transition: all 0.15s;
 }
 
-.btn-danger:hover {
+.btn-danger:not(:disabled):hover {
   background: #3a1818;
 }
 
@@ -312,12 +310,12 @@ select option {
   border-radius: 7px;
   color: #aaa;
   font-size: 12px;
-  padding: 7px 12px;
+  padding: 6px;
   cursor: pointer;
   transition: all 0.15s;
 }
 
-.btn-secondary:hover {
+.btn-secondary:not(:disabled):hover {
   border-color: #7c5cfc;
   color: #c4b5fd;
 }
@@ -484,7 +482,7 @@ select option {
 }
 
 .format-pills label {
-  margin: 0
+  margin: 0;
 }
 
 .format-pill.active {
@@ -513,7 +511,7 @@ select option {
   transition: all 0.15s;
 }
 
-.preset-item:hover {
+.preset-item:not(:disabled):hover {
   border-color: #7c5cfc;
 }
 
@@ -588,4 +586,49 @@ select option {
 
 .disabled {
   background-color: #c9c8c5;
+}
+
+.input-container {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.input-container input {
+  flex: 1;
+}
+
+.input-container :last-child {
+  flex-shrink: 0;
+  height: auto;
+}
+
+button:disabled {
+  cursor: default;
+  background-color: #bdb9b97a;
+}
+
+button:disabled:hover {
+  pointer-events: none;
+}
+
+.icon[data-state="stale"] {
+  display: block;
+}
+.icon[data-state="loading"] {
+  display: none;
+}
+
+button[data-state="loading"] .icon[data-state="loading"] {
+  display: block;
+}
+button[data-state="loading"] .icon[data-state="stale"] {
+  display: none;
+}
+
+button[data-state="stale"] .icon[data-state="loading"] {
+  display: none;
+}
+button[data-state="stale"] .icon[data-state="stale"] {
+  display: block;
 }

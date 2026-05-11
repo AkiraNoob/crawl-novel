@@ -1,103 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Novel Crawler</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/a61c46a1d0.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Novel Crawler</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-
-<body>
-
-  <!-- Header -->
-  <div class="header">
-    <div class="header-icon">📖</div>
-    <div>
-      <h1>Novel Crawler</h1>
-      <p id="header-url">No page loaded</p>
-    </div>
-    <div class="status-dot idle" id="status-dot" title="Idle"></div>
-  </div>
-
-  <!-- ══ TAB: CRAWL ══ -->
-  <form class="tab-panel active" id="crawl-form">
-
-    <!-- Selector config (quick) -->
-    <div class="section">
-      <div class="section-title">Content Selector</div>
-      <label>URL*</label>
-      <input required type="url" id="url-selector" placeholder="https://example.com" />
-      <label>Content CSS selector*</label>
-      <input required type="text" id="quick-content-selector" placeholder=".chapter-content, #content, article p" />
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="header-icon">📖</div>
+      <div>
+        <h1>Novel Crawler</h1>
+        <p id="header-url">No page loaded</p>
+      </div>
+      <div class="status-dot idle" id="status-dot" title="Idle"></div>
     </div>
 
-    <!-- Crawl settings -->
-    <!-- <div class="section">
-      <div class="section-title">Crawl Settings</div>
-      <div class="input-row">
-        <div>
-          <label>From chapters</label>
-          <input required type="number" id="from-chapters" min="1" max="9999" />
+    <!-- ══ TAB: CRAWL ══ -->
+    <form class="tab-panel active" id="crawl-form">
+      <!-- Selector config (quick) -->
+      <div class="section">
+        <div class="section-title">Content Selector</div>
+        <label>URL*</label>
+        <div class="input-container">
+          <input
+            required
+            type="url"
+            id="url-selector"
+            placeholder="https://example.com"
+          />
+          <button
+            disabled
+            type="button"
+            id="btn-load-meta-data"
+            class="btn-secondary"
+          >
+            <i
+              data-state="stale"
+              class="icon fa-solid fa-arrow-rotate-right"
+            ></i>
+            <i
+              data-state="loading"
+              class="icon fa-solid fa-spinner fa-spin"
+            ></i>
+          </button>
         </div>
-        <div>
-          <label>To chapters</label>
-          <input required type="number" id="to-chapters" min="1" max="9999" />
+
+        <label>Novel title (for filename)</label>
+
+        <input
+          type="text"
+          id="novel-title"
+          placeholder="Auto-detected from page…"
+        />
+
+        <label>Novel cover</label>
+        <div class="input-container">
+          <input
+            type="url"
+            id="novel-cover"
+            placeholder="Auto-detected from page…"
+          />
+          <button
+            type="button"
+            disabled
+            id="novel-cover-open-btn"
+            class="btn-secondary"
+          >
+            <i class="icon fa-solid fa-arrow-up-right-from-square"></i>
+          </button>
         </div>
       </div>
-      <label>Novel title (for filename)</label>
-      <input type="text" id="novel-title" placeholder="Auto-detected from page…" />
-    </div> -->
 
-    <!-- Download format -->
-    <div class="section">
-      <div class="section-title">Output Format</div>
-      <fieldset id="crawl-form-fieldset" form="crawl-form" class="format-pills">
-        <div>
-          <input type="radio" id="epub" name="format" value="epub">
-          <label for="epub">EPUB</label>
-        </div>
-        <div>
-          <input type="radio" id="pdf" name="format" value="pdf">
-          <label for="pdf">PDF</label>
-        </div>
-        <div>
-          <input type="radio" id="word" name="format" value="word">
-          <label for="word">WORD</label>
-        </div>
-      </fieldset>
-    </div>
-
-    <!-- Start button -->
-    <div class="section">
-        <button type="submit" class="btn-primary" id="btn-download" disabled>⬇ Download</button>
-      <div class="btn-row" style="margin-top:8px;">
-        <button class="btn-danger" id="btn-stop" disabled>■ Stop</button>
+      <!-- Download format -->
+      <div class="section">
+        <div class="section-title">Output Format</div>
+        <fieldset
+          id="crawl-form-fieldset"
+          form="crawl-form"
+          class="format-pills"
+        >
+          <div>
+            <input type="radio" id="epub" name="format" value="epub" />
+            <label for="epub">EPUB</label>
+          </div>
+          <div>
+            <input type="radio" id="pdf" name="format" value="pdf" />
+            <label for="pdf">PDF</label>
+          </div>
+          <div>
+            <input type="radio" id="word" name="format" value="word" />
+            <label for="word">WORD</label>
+          </div>
+        </fieldset>
       </div>
+
+      <!-- Start button -->
+      <div class="section">
+        <button type="submit" class="btn-primary" id="btn-download" disabled>
+          <i data-state="stale" class="icon fa-solid fa-arrow-down"></i>
+          <i data-state="loading" class="icon fa-solid fa-spinner fa-spin"></i>
+          Download
+        </button>
+        <div class="btn-row" style="margin-top: 8px">
+          <button type="button" class="btn-danger" id="btn-stop" disabled>
+            ■ Stop
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Progress section (shared across tabs) -->
+    <div class="progress-section" id="progress-section">
+      <div class="section-title">Progress</div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-stats">
+        <div>
+          Chapter <span id="prog-current">0</span> /
+          <span id="prog-total">?</span>
+        </div>
+        <div><span id="prog-words">0</span> words collected</div>
+      </div>
+      <div class="progress-log" id="progress-log"></div>
     </div>
 
-  </form>
-
-  <!-- Progress section (shared across tabs) -->
-  <div class="progress-section" id="progress-section">
-    <div class="section-title">Progress</div>
-    <div class="progress-bar-track">
-      <div class="progress-bar-fill" id="progress-fill"></div>
+    <!-- Chapters list section -->
+    <div class="chapters-section" id="chapters-section">
+      <div class="section-title" style="padding: 0 16px; padding-top: 12px">
+        Collected Chapters
+      </div>
+      <div
+        class="chapter-list"
+        id="chapter-list"
+        style="padding: 0 16px 12px"
+      ></div>
     </div>
-    <div class="progress-stats">
-      <div>Chapter <span id="prog-current">0</span> / <span id="prog-total">?</span></div>
-      <div><span id="prog-words">0</span> words collected</div>
-    </div>
-    <div class="progress-log" id="progress-log"></div>
-  </div>
 
-  <!-- Chapters list section -->
-  <div class="chapters-section" id="chapters-section">
-    <div class="section-title" style="padding: 0 16px; padding-top:12px;">Collected Chapters</div>
-    <div class="chapter-list" id="chapter-list" style="padding: 0 16px 12px;"></div>
-  </div>
-
-  <script type="module" src="./index.js"></script>
-</body>
-
+    <script type="module" src="./index.js"></script>
+  </body>
 </html>

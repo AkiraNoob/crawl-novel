@@ -4,7 +4,11 @@ import { FileSavingStrategy, EpubStrategy } from "./file_strategy/index.js";
 import { AtlantisVienDongParser } from "./parser/index.js";
 import path from "path";
 import { fileURLToPath } from "url";
-import { DOWNLOAD_TYPE, SOURCE_TYPE } from "./constants/index.js";
+import {
+  DOWNLOAD_TYPE,
+  REVERSERD_SOURCE_TYPE,
+  SOURCE_TYPE,
+} from "./constants/index.js";
 import Parser from "./parser/parser.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -20,17 +24,14 @@ app.use((req, res, next) => {
   next();
 });
 
-const fileSavingStrategy = new FileSavingStrategy();
-const parser = new Parser();
-
 app.post("/crawl", async (req, res) => {
+  const fileSavingStrategy = new FileSavingStrategy();
+  const parser = new Parser();
+
   try {
-    const {
-      outputType,
-      sourceType,
-      url,
-      ...options
-    } = req.body;
+    const { outputType, url, ...options } = req.body;
+    const host = new URL(url).host;
+    const sourceType = REVERSERD_SOURCE_TYPE[host];
 
     switch (outputType) {
       case DOWNLOAD_TYPE.EPUB:
@@ -50,9 +51,40 @@ app.post("/crawl", async (req, res) => {
         break;
     }
 
+    if (!parser || !fileSavingStrategy) {
+      throw new Error("Parser or File saving strategy not init");
+    }
+
     await parser.execute(url, fileSavingStrategy, options);
 
     res.json({ success: true, data: result });
+  } catch (err) {
+    res.json({ success: false, error: err.message });
+  }
+});
+
+app.post("/meta-data", async (req, res) => {
+  const parser = new Parser();
+  try {
+    const { url } = req.body;
+    const host = new URL(url).host;
+
+    const sourceType = REVERSERD_SOURCE_TYPE[host];
+    switch (sourceType) {
+      case SOURCE_TYPE.ATLANTIS_VIEN_DONG:
+        parser.setParser(new AtlantisVienDongParser());
+        break;
+
+      default:
+        break;
+    }
+
+    if (!parser) {
+      throw new Error("Parser not init");
+    }
+
+    const data = await parser.getMetaData(url);
+    res.json({ success: true, data: { ...data, sourceType } });
   } catch (err) {
     res.json({ success: false, error: err.message });
   }

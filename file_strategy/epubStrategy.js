@@ -6,7 +6,7 @@ class EpubStrategy {
    * @param {{title: string, texts: string}[]} data
    * @param {{bookTitle: string, author?: string, publisher?: string, cover?: string, output: string}} options
    */
-  execute(data, options) {
+  async execute(data, options) {
     new Epub({
       ...options,
       output: `../files/${options.bookTitle}.${DOWNLOAD_TYPE.EPUB}`,
@@ -14,7 +14,10 @@ class EpubStrategy {
         title: item.title,
         data: item.texts,
       })),
-    });
+    }).promise.then(
+      () => console.log("Ebook Generated Successfully!"),
+      (err) => console.error("Failed to generate Ebook because of ", err)
+    );
   }
 }
 

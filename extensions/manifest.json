@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Web novel crawler",
+  "version": "1.0",
+  "description": "Crawl and download novel content on supported pages",
+  "permissions": ["tabs", "activeTab", "storage", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Open My URL"
+  }
+}
