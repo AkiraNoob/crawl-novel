@@ -1,6 +1,14 @@
-const express = require("express");
-const cors = require("cors");
-const { scrapeContent } = require("./scraper-puppeteer");
+import express from "express";
+import cors from "cors";
+import { FileSavingStrategy, EpubStrategy } from "./file_strategy/index.js";
+import { AtlantisVienDongParser } from "./parser/index.js";
+import path from "path";
+import { fileURLToPath } from "url";
+import { DOWNLOAD_TYPE, SOURCE_TYPE } from "./constants/index.js";
+import Parser from "./parser/parser.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors());
@@ -12,12 +20,37 @@ app.use((req, res, next) => {
   next();
 });
 
+const fileSavingStrategy = new FileSavingStrategy();
+const parser = new Parser();
+
 app.post("/crawl", async (req, res) => {
   try {
-    const { url, query } = req.body;
+    const {
+      outputType,
+      sourceType,
+      url,
+      ...options
+    } = req.body;
 
-    const result = await scrapeContent(url, query);
-    console.log(result);
+    switch (outputType) {
+      case DOWNLOAD_TYPE.EPUB:
+        fileSavingStrategy.setStrategy(new EpubStrategy());
+        break;
+
+      default:
+        break;
+    }
+
+    switch (sourceType) {
+      case SOURCE_TYPE.ATLANTIS_VIEN_DONG:
+        parser.setParser(new AtlantisVienDongParser());
+        break;
+
+      default:
+        break;
+    }
+
+    await parser.execute(url, fileSavingStrategy, options);
 
     res.json({ success: true, data: result });
   } catch (err) {

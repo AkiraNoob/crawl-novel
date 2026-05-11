@@ -1,3 +1,5 @@
+import { SOURCE_TYPE } from "./constants/index.js";
+
 (function intiation() {
   const urlInput = document.getElementById("url-selector");
   const queryInput = document.getElementById("quick-content-selector");
@@ -6,7 +8,8 @@
     localStorage.getItem("url-selector") ||
     "https://atlantisviendong.com/chuong-1-anh-da-dien-tu-lau-roi/";
   const defaultQuery =
-    localStorage.getItem("quick-content-selector") || 'span[style="font-weight: 400"]';
+    localStorage.getItem("quick-content-selector") ||
+    'span[style="font-weight: 400"]';
 
   urlInput.value = defaultUrl;
   queryInput.value = defaultQuery;
