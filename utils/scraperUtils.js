@@ -48,26 +48,24 @@ const TOKEN = "2URrCJdYkHC4KDM8b0bbf4ddfac0324d032a0c44e0e76ef4e";
  * @returns {Promise<string>} HTMl content
  */
 export async function loadSite(url) {
-  try {
-    const result = await fetch(
-      `https://production-sfo.browserless.io/unblock?token=${TOKEN}&proxy=residential`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          url,
-          content: true,
-        }),
-      }
-    )
-      .then((res) => res.json())
-      .catch((error) => {
-        throw error;
-      });
-
-    return result.content;
-  } catch (error) {
-    console.error("ERROR:", error);
-    throw error;
-  }
+  return await fetch(
+    `https://production-sfo.browserless.io/unblock?token=${TOKEN}&proxy=residential`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        url,
+        content: true,
+      }),
+    },
+  )
+    .then((res) => {
+      console.log("Response:", res);
+      return res.json();
+    })
+    .then((res) => res.content)
+    .catch((error) => {
+      console.error("ERROR:", error);
+      throw error;
+    });
 }

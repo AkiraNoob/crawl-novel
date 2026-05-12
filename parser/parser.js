@@ -10,11 +10,11 @@ class Parser {
   /**
    *
    * @param {string} url
-   * @param {FileSavingStrategy} downloadStrategy
+   * @param {FileSavingStrategy} fileSavingStrategy
    * @param {{title: string, cover: string, [key: string]: any}} options
    */
-  async execute(url, options) {
-    return await this._parser.execute(url, options);
+  async execute(url, fileSavingStrategy, options) {
+    return await this._parser.execute(url, fileSavingStrategy, options);
   }
 
   /**

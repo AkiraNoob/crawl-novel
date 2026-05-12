@@ -16,7 +16,7 @@ class FileSavingStrategy {
       return;
     }
 
-    this._strategy.execute(data, options);
+    return this._strategy.execute(data, options);
   }
 }
 

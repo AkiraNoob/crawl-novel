@@ -3,7 +3,7 @@ import { loadSite } from "../utils/scraperUtils.js";
 import * as cheerio from "cheerio";
 
 class AtlantisVienDongParser {
-  _query = 'span[(style="font-weight: 400")]';
+  _query = 'span[style="font-weight: 400"]';
 
   /**
    * Get novel content
@@ -20,12 +20,12 @@ class AtlantisVienDongParser {
        */
       const bookContents = [];
 
-      chapterUrls.forEach(async (url, index) => {
-        const html = await loadSite(url);
+      for (const url of chapterUrls) {
+         const html = await loadSite(url);
         const $ = cheerio.load(html);
 
         const title = $("title").text();
-        const texts = $(query)
+        const texts = $(this._query)
           .map((i, el) => $(el).text())
           .get();
 
@@ -33,7 +33,9 @@ class AtlantisVienDongParser {
           title,
           texts,
         });
-      });
+      }
+
+      console.log(texts);
 
       await fileSavingStrategy.execute(bookContents, {
         bookTitle: bookTitle,
