@@ -404,7 +404,7 @@ select option {
 
 /* ── Chapters list ── */
 .chapters-section {
-  padding: 12px 0px;
+  padding: 12px 0px 0px;
   border-bottom: 1px solid #1e1e28;
   display: none;
 }
@@ -432,11 +432,19 @@ select option {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 0;
+  padding: 5px;
+  padding-right: 12px;
   border-bottom: 1px solid #1a1a24;
-  font-size: 11px;
+}
+
+.chapter-item a {
   text-decoration: none;
   color: #e2e2e8;
+  font-size: 11px;
+}
+
+.chapter-item-icon {
+  margin-left: auto;
 }
 
 .chapter-item:last-child {

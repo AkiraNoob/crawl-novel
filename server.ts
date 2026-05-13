@@ -1,4 +1,4 @@
-import express from "express";
+import express, { ErrorRequestHandler } from "express";
 import cors from "cors";
 import { FileSavingStrategy, EpubStrategy } from "./file_strategy/index.js";
 import { AtlantisVienDongParser } from "./parser/index.js";
@@ -31,7 +31,7 @@ app.post("/crawl", async (req, res) => {
   try {
     const { outputType, url, ...options } = req.body;
     const host = new URL(url).host;
-    const sourceType = REVERSERD_SOURCE_TYPE[host];
+    const sourceType = REVERSERD_SOURCE_TYPE[host as keyof typeof REVERSERD_SOURCE_TYPE];
 
     switch (outputType) {
       case DOWNLOAD_TYPE.EPUB:
@@ -57,8 +57,8 @@ app.post("/crawl", async (req, res) => {
 
     await parser.execute(url, fileSavingStrategy, options);
 
-    res.json({ success: true, data: result });
-  } catch (err) {
+    res.json({ success: true, data: "Saved" });
+  } catch (err: any) {
     res.json({ success: false, error: err.message });
   }
 });
@@ -68,8 +68,8 @@ app.post("/meta-data", async (req, res) => {
   try {
     const { url } = req.body;
     const host = new URL(url).host;
+    const sourceType = REVERSERD_SOURCE_TYPE[host as keyof typeof REVERSERD_SOURCE_TYPE];
 
-    const sourceType = REVERSERD_SOURCE_TYPE[host];
     switch (sourceType) {
       case SOURCE_TYPE.ATLANTIS_VIEN_DONG:
         parser.setParser(new AtlantisVienDongParser());
@@ -85,7 +85,7 @@ app.post("/meta-data", async (req, res) => {
 
     const data = await parser.getMetaData(url);
     res.json({ success: true, data: { ...data, sourceType } });
-  } catch (err) {
+  } catch (err: any) {
     res.json({ success: false, error: err.message });
   }
 });

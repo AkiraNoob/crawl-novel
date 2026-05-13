@@ -1,45 +1,48 @@
-import { FileSavingStrategy } from "../file_strategy/index.js";
+import { SOURCE_TYPE } from "../constants/index.js";
 import { loadSite } from "../utils/scraperUtils.js";
 import * as cheerio from "cheerio";
+import { IParser, IParserOptions } from "./parser.js";
+import { IFileSavingStrategy } from "../file_strategy/strategy.js";
+import type {Options, Chapter} from 'epub-gen-memory'
 
-class AtlantisVienDongParser {
+class AtlantisVienDongParser implements IParser {
   _query = 'span[style="font-weight: 400"]';
 
-  /**
-   * Get novel content
-   * @param {string} url
-   * @param {FileSavingStrategy} fileSavingStrategy
-   * @param {{title: string, cover: string, chapterUrls: string[]}} options
-   */
-  async execute(url, fileSavingStrategy, options) {
+  async execute(url: string, fileSavingStrategy: IFileSavingStrategy, options: IParserOptions) {
     try {
       const { title: bookTitle, cover: bookCover, chapterUrls } = options;
 
-      /**
-       * @type {{title: string, texts: string}[]}
-       */
-      const bookContents = [];
+
+      const bookContents: Chapter[] = [];
 
       for (const url of chapterUrls) {
-         const html = await loadSite(url);
+        const html = await loadSite(url, {
+          waitForSelector: {
+            selector: this._query,
+            timeout: 80000,
+          },
+        });
         const $ = cheerio.load(html);
 
         const title = $("title").text();
         const texts = $(this._query)
-          .map((i, el) => $(el).text())
+          .map((i, el) => {
+            console.log(`<p>${$(el).toString()}</p>`);
+            return `<p>${$(el).toString()}</p>`
+          })
           .get();
 
-        texts.push({
+        bookContents.push({
           title,
-          texts,
+          content: texts.join(""),
         });
       }
 
-      console.log(texts);
-
       await fileSavingStrategy.execute(bookContents, {
-        bookTitle: bookTitle,
+        title: bookTitle,
         cover: bookCover,
+        lang: 'vi',
+        publisher: SOURCE_TYPE.ATLANTIS_VIEN_DONG
       });
     } catch (error) {
       console.error("ERROR getContent:", error);
@@ -47,11 +50,8 @@ class AtlantisVienDongParser {
     }
   }
 
-  /**
-   * Get novel meta data
-   * @returns {Promise<{title: string, cover: string, chapterUrls: string[]}>}
-   */
-  async getMetaData(url) {
+ 
+  async getMetaData(url: string) {
     try {
       const html = await loadSite(url);
       const $ = cheerio.load(html);
