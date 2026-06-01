@@ -10,6 +10,7 @@ import {
   SOURCE_TYPE,
 } from "./constants/index.js";
 import Parser from "./parser/parser.js";
+import logger from "./utils/logger.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -55,7 +56,7 @@ app.post("/crawl", async (req, res) => {
       throw new Error("Parser or File saving strategy not init");
     }
 
-    await parser.execute(url, fileSavingStrategy, options);
+    parser.execute(url, fileSavingStrategy, options);
 
     res.json({ success: true, data: "Saved" });
   } catch (err: any) {
@@ -91,7 +92,7 @@ app.post("/meta-data", async (req, res) => {
 });
 
 const server = app.listen(3000, () => {
-  console.log("Server running at port 3000");
+  logger.log("Server running at port 3000");
 });
 
 server.timeout = 60000;

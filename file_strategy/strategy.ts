@@ -1,4 +1,5 @@
 import type {Options, Chapter} from 'epub-gen-memory'
+import logger from "../utils/logger.js";
 
 export interface IFileSavingStrategy {
   execute(data: Chapter[], options: Options): Promise<void>
@@ -13,7 +14,7 @@ class FileSavingStrategy implements IFileSavingStrategy {
 
   async execute(data: Chapter[], options: Options) {
     if (!this._strategy) {
-      console.error("Init strategy first");
+      logger.log("Init strategy first");
       return;
     }
 

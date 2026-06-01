@@ -313,9 +313,13 @@ select option {
   border-radius: 7px;
   color: #aaa;
   font-size: 12px;
-  padding: 6px;
+  padding: 9px 16px;
   cursor: pointer;
   transition: all 0.15s;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-secondary:not(:disabled):hover {

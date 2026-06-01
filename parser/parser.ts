@@ -1,4 +1,5 @@
 import { IFileSavingStrategy } from "../file_strategy/strategy.js";
+import logger from "../utils/logger.js";
 
 export interface IParserOptions {
   title: string;
@@ -33,7 +34,7 @@ class Parser implements IParser {
     options: IParserOptions,
   ) {
     if (!this._parser) {
-      console.error("Init parser first");
+      logger.log("Init parser first");
       return;
     }
     return await this._parser.execute(url, fileSavingStrategy, options);
@@ -41,7 +42,7 @@ class Parser implements IParser {
 
   async getMetaData(url: string) {
     if (!this._parser) {
-      console.error("Init parser first");
+      logger.log("Init parser first");
       return;
     }
     return await this._parser.getMetaData(url);

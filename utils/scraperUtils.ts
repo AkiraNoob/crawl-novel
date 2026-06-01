@@ -1,3 +1,5 @@
+import logger from "./logger.js";
+
 const TOKEN = "2UVZ9cRpTSYhgvH1a62966eb117fd3e098f693b7d89150d97";
 
 interface IExpandedBody {
@@ -9,39 +11,46 @@ interface IExpandedBody {
 
 export async function loadSite(
   url: string,
-  expandedBody?: IExpandedBody,
 ): Promise<string> {
   return await fetch(
-    `https://production-sfo.browserless.io/unblock?token=${TOKEN}&proxy=residential&timeout=60000`,
+    `https://production-sfo.browserless.io/smart-scrape?token=${TOKEN}&timeout=60000`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         url,
-        content: true,
-        cookies: false,
-        screenshot: false,
-        browserWSEndpoint: false,
-        bestAttempt: true,
-        ttl: 80000,
-        ...expandedBody,
+        formats: ['html'],
       }),
     },
   )
     .then(async (res) => {
-      console.log("Response: ", res);
       if (res.status !== 200) {
         const text = await res.text();
-        console.log("Text response: ", text);
+        logger.log("LoadSite text response: ", text);
         return text;
       }
       const json = await res.json();
-        console.log("JSON response: ", json);
+      logger.log("LoadSite json response: ", json);
       return json;
     })
     .then((res) => (typeof res === "string" ? res : res.content))
     .catch((error) => {
-      console.error("ERROR:", error);
+      logger.log("ERROR:", error);
+      throw error;
+    });
+}
+
+export async function loadSiteNormally(
+  url: string,
+): Promise<string> {
+  return await fetch(url)
+    .then(async (res) => {
+      const json = await res.json();
+      logger.log("LoadSite json response: ", json);
+      return json;
+    })
+    .catch((error) => {
+      logger.log("ERROR:", error);
       throw error;
     });
 }

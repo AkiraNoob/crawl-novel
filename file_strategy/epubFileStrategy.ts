@@ -4,6 +4,7 @@ import { DOWNLOAD_TYPE } from "../constants/index.js";
 import { IFileSavingStrategy } from "./strategy.js";
 import fs from "fs";
 import path from "path";
+import logger from "../utils/logger.js";
 
 class EpubStrategy implements IFileSavingStrategy {
   async execute(data: Chapter[], options: Options) {
@@ -16,16 +17,17 @@ class EpubStrategy implements IFileSavingStrategy {
         })),
       ).genEpub();
 
-      const dir = path.resolve(process.cwd(), "files");
-      console.log(dir);
+      const dir = path.resolve(process.cwd(), `files/epubs`);
+      
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
-
+      logger.log(`[PROGRESS]: Saving content to epub format at ${dir}`);
       const filePath = path.join(dir, `${options.title}.${DOWNLOAD_TYPE.EPUB}`);
       await fs.promises.writeFile(filePath, Buffer.from(content));
+      logger.log(`[PROGRESS]: Saved successfully`);
     } catch (error) {
-      console.log("Error", error);
+      logger.log("Error", error);
     }
   }
 }

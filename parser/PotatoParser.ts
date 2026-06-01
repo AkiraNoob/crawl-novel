@@ -8,7 +8,7 @@ import logger from "../utils/logger.js";
 import fs from "fs";
 import path from "path";
 
-class AtlantisVienDongParser implements IParser {
+class PotatoParser implements IParser {
   _query = 'span[style="font-weight: 400"]';
 
   async execute(
@@ -96,4 +96,4 @@ class AtlantisVienDongParser implements IParser {
   }
 }
 
-export default AtlantisVienDongParser;
+export default PotatoParser;

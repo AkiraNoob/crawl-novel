@@ -11,6 +11,8 @@ const btnLoadMetaData = document.getElementById(
   "btn-load-meta-data",
 ) as HTMLButtonElement;
 const urlSelector = document.getElementById("url-selector") as HTMLInputElement;
+const chaptersQuerySelector = document.getElementById("chapters-query-selector") as HTMLInputElement;
+const contentQuerySelector = document.getElementById("content-query-selector") as HTMLInputElement;
 const novelTitle = document.getElementById("novel-title") as HTMLInputElement;
 const novelCover = document.getElementById("novel-cover") as HTMLInputElement;
 const downloadFormat = document.getElementById(
