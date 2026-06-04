@@ -1,8 +1,8 @@
-import type {Options, Chapter} from 'epub-gen-memory'
+import type { Options, Chapter } from "epub-gen-memory";
 import logger from "../utils/logger.js";
 
 export interface IFileSavingStrategy {
-  execute(data: Chapter[], options: Options): Promise<void>
+  execute(data: Chapter[], options: Options): Promise<void>;
 }
 
 class FileSavingStrategy implements IFileSavingStrategy {

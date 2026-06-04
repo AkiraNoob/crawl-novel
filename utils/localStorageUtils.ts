@@ -1,7 +1,6 @@
-export interface ICrawlOptions {
-  title: string;
-  cover: string;
-  chapterUrls: string[];
+import { IMetaDataReturns } from "../parser/parser.js";
+
+export interface ICrawlOptions extends Required<IMetaDataReturns> {
   url: string;
   sourceType: string;
 }

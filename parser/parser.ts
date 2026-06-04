@@ -1,16 +1,16 @@
 import { IFileSavingStrategy } from "../file_strategy/strategy.js";
 import logger from "../utils/logger.js";
 
-export interface IParserOptions {
+export interface IParserOptions extends Pick<IMetaDataReturns, 'chapterUrls'> {
   title: string;
   cover: string;
-  chapterUrls: string[];
+  contentQuery: string;
 }
 
 export interface IMetaDataReturns {
   title: string;
   cover?: string;
-  chapterUrls: string[];
+  chapterUrls: {url: string, title: string}[];
 }
 export interface IParser {
   execute(

@@ -1,5 +1,5 @@
 import { SOURCE_TYPE } from "../constants/index.js";
-import { loadSite } from "../utils/scraperUtils.js";
+import { smartScapeFetching, unblockFetching } from "../utils/scraperUtils.js";
 import * as cheerio from "cheerio";
 import { IParser, IParserOptions } from "./parser.js";
 import { IFileSavingStrategy } from "../file_strategy/strategy.js";
@@ -9,50 +9,83 @@ import fs from "fs";
 import path from "path";
 
 class AtlantisVienDongParser implements IParser {
-  _query = 'span[style="font-weight: 400"]';
+  private _metaDataQuery: string = ".uk-nav-sub li a";
+
+  private getContent(html: string, contentQuery: string): string {
+    const $ = cheerio.load(html);
+    const texts = $(contentQuery)
+      .map((i, el) => {
+        return `<p>${$(el).text().toString()}</p>`;
+      })
+      .get();
+
+    return texts.join("");
+  }
 
   async execute(
-    url: string,
+    _url: string,
     fileSavingStrategy: IFileSavingStrategy,
     options: IParserOptions,
   ) {
     try {
-      const { title: bookTitle, cover: bookCover, chapterUrls } = options;
+      const {
+        title: bookTitle,
+        cover: bookCover,
+        chapterUrls,
+        contentQuery,
+      } = options;
 
       const bookContents: Chapter[] = [];
 
-      for (const url of chapterUrls) {
-        logger.log(`[PROGRESS] Fetching content of chap ${url}.`);
-        const html = await loadSite(url);
-        const $ = cheerio.load(html);
+      const dir = path.resolve(process.cwd(), `files/contents/${bookTitle}`);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
 
-        const title =
-          $("title").text() || $("meta[property='og:title']").attr("content");
-        const texts = $(this._query)
-          .map((i, el) => {
-            return `<p>${$(el).text().toString()}</p>`;
-          })
-          .get();
+      for (const chapter of chapterUrls) {
+        const title = chapter.title;
+        const filePath = path.join(dir, `${title}.txt`);
+        logger.log(
+          `[PROGRESS] Check if content of chap ${title} has been stored or not.`,
+        );
 
-        const dir = path.resolve(process.cwd(), `files/contents/${bookTitle}`);
-        if (!fs.existsSync(dir)) {
-          fs.mkdirSync(dir, { recursive: true });
+        const isChapterExist = fs.existsSync(filePath);
+
+        if (isChapterExist) {
+          const content = await fs.promises.readFile(filePath, "utf8");
+          bookContents.push({
+            title,
+            content,
+          });
+          logger.log(
+            `[PROGRESS] Done get the cached content of chap ${title}.`,
+          );
+          continue;
         }
 
-        const filePath = path.join(dir, `${title}.txt`);
-
-        await fs.promises.writeFile(filePath, texts.join(""));
-        bookContents.push({
-          title,
-          content: texts.join(""),
-        });
         logger.log(
-          `[PROGRESS] Done fetching content of chap ${url}. Title: ${title}`,
+          `[PROGRESS] Fetching content of chap ${title}. URL: ${chapter.url}`,
         );
+        const html = (await smartScapeFetching(chapter.url)) ?? "";
+        const content = this.getContent(html, contentQuery);
+
+        if (title && (content ?? []).length > 0) {
+          await fs.promises.writeFile(filePath, content);
+
+          bookContents.push({
+            title,
+            content,
+          });
+          logger.log(`[PROGRESS] Done fetching content of chap ${title}.`);
+          continue;
+        }
+
+        logger.log(`[PROGRESS] Cannot get content of chap ${title}.`);
       }
 
       logger.log(
-        `[PROGRESS] Done fetching content of all chapters. Start saving file.`,
+        `[PROGRESS] Done fetching content of all chapters. Start saving file. Book contents: `,
+        bookContents,
       );
       fileSavingStrategy.execute(bookContents, {
         title: bookTitle,
@@ -68,18 +101,26 @@ class AtlantisVienDongParser implements IParser {
 
   async getMetaData(url: string) {
     try {
-      const html = await loadSite(url);
+      const html = await unblockFetching(url, {
+        waitForSelector: {
+          selector: this._metaDataQuery,
+          timeout: 60000,
+        },
+      });
       const $ = cheerio.load(html);
 
       const title =
-        $("title").text() || $("meta[property='og:title']").attr("content") as string;
+        $("title").text() ||
+        ($("meta[property='og:title']").attr("content") as string);
       const cover = $("meta[property='og:image']").attr("content");
 
-      const links = $(".uk-nav-sub");
-      logger.log(`Get meta data:`, links.length);
+      const links = $(this._metaDataQuery);
       const chapterUrls = links
         .map((_, el) => {
-          return $(el.children).attr("href");
+          return {
+            url: $(el).attr("href") || "",
+            title: $(el).text(),
+          };
         })
         .get();
       logger.log(`Get meta data:`, chapterUrls);

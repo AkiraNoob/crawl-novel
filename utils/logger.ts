@@ -3,16 +3,15 @@ import path from "path";
 
 export class Logger {
   private stream: fs.WriteStream;
-  private _logFileDir = `files/logger_${new Date().toISOString().slice(0, 10)}.txt`;
+  private _logFileDir = `files/logs/logger_${new Date().toISOString().slice(0, 19)}.txt`;
 
   constructor() {
     const dir = path.dirname(this._logFileDir);
 
-    // Create log directory if it doesn't exist
     fs.mkdirSync(dir, { recursive: true });
 
     this.stream = fs.createWriteStream(this._logFileDir, {
-      flags: "a", // append mode
+      flags: "a",
     });
   }
 

@@ -26,11 +26,11 @@
     <!-- Selector config (quick) -->
     <div class="section">
       <div class="section-title">Content Selector</div>
-        <label>URL*</label>
-        <input required type="url" id="url-selector" placeholder="https://example.com" />
+      <label>URL*</label>
+      <input required type="url" id="url-selector" placeholder="https://example.com" />
 
-        <label>Chapters query*</label>
-        <input required type="text" id="chapters-query-selector" placeholder="Enter your query here" />
+      <!-- <label>Chapters query*</label>
+      <input required type="text" id="chapters-query-selector" placeholder="Enter your query here" /> -->
 
       <label>Novel title (for filename)</label>
       <input type="text" id="novel-title" placeholder="Auto-detected from page…" />
@@ -68,7 +68,8 @@
 
     <!-- Start button -->
     <div class="section">
-      <span><b>PLEASE CLICK "Retrieve novel meta data" BEFORE CLICKING "Download". It must show the chapter urls list below before the scrapper can download the novel successfully</b></span>
+      <span><b>PLEASE CLICK "Retrieve novel meta data" BEFORE CLICKING "Download". It must show the chapter urls list
+          below before the scrapper can download the novel successfully</b></span>
 
       <button style="width: 100%; margin-top: 8px;" type="button" id="btn-load-meta-data" class="btn-secondary">
         <i data-state="stale" class="icon fa-solid fa-arrow-rotate-right"></i>
@@ -76,7 +77,7 @@
         Retrieve novel meta data
       </button>
 
-      <button type="submit"style="margin-top: 8px" class="btn-primary" id="btn-download">
+      <button type="submit" style="margin-top: 8px" class="btn-primary" id="btn-download">
         <i data-state="stale" class="icon fa-solid fa-arrow-down"></i>
         <i data-state="loading" class="icon fa-solid fa-spinner fa-spin"></i>
         Download

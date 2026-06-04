@@ -11,7 +11,7 @@ const btnLoadMetaData = document.getElementById(
   "btn-load-meta-data",
 ) as HTMLButtonElement;
 const urlSelector = document.getElementById("url-selector") as HTMLInputElement;
-const chaptersQuerySelector = document.getElementById("chapters-query-selector") as HTMLInputElement;
+// const chaptersQuerySelector = document.getElementById("chapters-query-selector") as HTMLInputElement;
 const contentQuerySelector = document.getElementById("content-query-selector") as HTMLInputElement;
 const novelTitle = document.getElementById("novel-title") as HTMLInputElement;
 const novelCover = document.getElementById("novel-cover") as HTMLInputElement;
@@ -39,7 +39,7 @@ let novelData: ICrawlOptions = {
 
 //define functions
 function deleteChapter(url: string) {
-  const index = novelData.chapterUrls.findIndex((value) => value === url);
+  const index = novelData.chapterUrls.findIndex((item) => item.url === url);
   novelData.chapterUrls.splice(index, 1);
   localStorageUtils.setCrawlOptions(novelData);
 }
@@ -53,13 +53,13 @@ function appendChapterLists() {
   const chapterUrls = novelData.chapterUrls;
 
   if (chapterUrls.length > 0) {
-    chapterUrls.forEach((url, index) => {
+    chapterUrls.forEach((item, index) => {
       const container = document.createElement("div");
       container.classList.add("chapter-item");
 
       const a = document.createElement("a");
-      a.href = url;
-      a.textContent = url;
+      a.href = item.url;
+      a.textContent = item.title;
       a.target = "_blank";
       container.appendChild(a);
 
@@ -70,7 +70,7 @@ function appendChapterLists() {
       deleteBtn.className = "btn-secondary chapter-item-icon";
       deleteBtn.appendChild(icon);
       deleteBtn.addEventListener("click", (e) => {
-        deleteChapter(url);
+        deleteChapter(item.url);
         container.remove();
       });
       container.appendChild(deleteBtn);
@@ -88,7 +88,7 @@ function appendChapterLists() {
 }
 
 function populatedData() {
-  const { title, cover, chapterUrls, url } = novelData;
+  const { title, cover } = novelData;
   if (title) {
     novelTitle.value = title;
   }
@@ -116,6 +116,7 @@ async function retrieveContent(
   finallyCallback: () => void,
 ) {
   const { url, ...crawlOptions } = novelData;
+  const contentQuery = contentQuerySelector.value;
 
   const outputType = Array.from(
     downloadFormat.querySelectorAll(
@@ -128,7 +129,7 @@ async function retrieveContent(
   axios
     .post(
       `${window.location.origin}/crawl`,
-      { ...crawlOptions, outputType, url },
+      { ...crawlOptions, outputType, url, contentQuery },
       {
         signal: abortSignal,
         headers: {

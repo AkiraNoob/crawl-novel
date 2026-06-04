@@ -1,4 +1,4 @@
-import express, { ErrorRequestHandler } from "express";
+import express from "express";
 import cors from "cors";
 import { FileSavingStrategy, EpubStrategy } from "./file_strategy/index.js";
 import { AtlantisVienDongParser } from "./parser/index.js";
@@ -11,6 +11,7 @@ import {
 } from "./constants/index.js";
 import Parser from "./parser/parser.js";
 import logger from "./utils/logger.js";
+import 'dotenv/config';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
