@@ -2,6 +2,7 @@
   "name": "crawler-app",
   "type": "module",
   "scripts": {
+    "postinstall": "cp .env.example .env",
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "npm run watch:ts & tsx watch server.ts",
