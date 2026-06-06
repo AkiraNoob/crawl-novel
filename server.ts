@@ -9,6 +9,7 @@ import {
 } from "./constants/index.js";
 import { EpubStrategy, FileSavingStrategy } from "./file_strategy/index.js";
 import PotatoParser from "./parser/PotatoParser.js";
+import VuongTaiParser from "./parser/VuongTaiParser.js";
 import { AtlantisVienDongParser } from "./parser/index.js";
 import Parser from "./parser/parser.js";
 import logger from "./utils/logger.js";
@@ -32,6 +33,8 @@ const setParser = (parser: Parser, sourceType: string) => {
       break;
     case SOURCE_TYPE.POTATO:
       parser.setParser(new PotatoParser());
+    case SOURCE_TYPE.VUONG_TAI:
+      parser.setParser(new VuongTaiParser());
 
     default:
       break;

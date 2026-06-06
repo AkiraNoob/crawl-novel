@@ -72,6 +72,7 @@ class AtlantisVienDongParser extends Parser implements IParser {
           };
         })
         .get() as IMetaDataReturns["chapterUrls"];
+
       logger.log(`Get meta data:`, chapterUrls);
 
       return {

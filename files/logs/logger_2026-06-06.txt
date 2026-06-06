@@ -701,3 +701,20 @@
 [2026-06-06T09:21:04.240Z] [PROGRESS] Done fetching content of all chapters. Start saving file.
 [2026-06-06T09:21:04.754Z] [PROGRESS]: Saving content to epub format at D:\Phuong\CODE\Sou_tools\files\epubs
 [2026-06-06T09:21:04.756Z] [PROGRESS]: Saved successfully
+[2026-06-06T10:27:04.275Z] Server running at port 3000
+[2026-06-06T10:27:50.113Z] Init parser first
+[2026-06-06T10:28:25.237Z] Server running at port 3000
+[2026-06-06T10:29:44.909Z] ERROR: {}
+[2026-06-06T10:29:44.910Z] ERROR getMetaData: {}
+[2026-06-06T10:30:28.130Z] Server running at port 3000
+[2026-06-06T10:30:39.783Z] ERROR: {}
+[2026-06-06T10:30:39.783Z] ERROR getMetaData: {}
+[2026-06-06T10:31:21.814Z] Server running at port 3000
+[2026-06-06T10:31:41.350Z] Get meta data: {"chapterUrlsLength":1,"title":"Tiếng Vang","cover":"https://pub-3f35422552d84256914aa95fb83a15e7.r2.dev/cover-42bc4881-2c7d-4a40-845e-3eae65f0860c-17807.webp"}
+[2026-06-06T10:31:53.979Z] [PROGRESS] Check if content of chap 001 | Nhiệm vụ has been stored or not.
+[2026-06-06T10:31:53.980Z] [PROGRESS] Fetching content of chap 001 | Nhiệm vụ. URL: https://vuongtai.space/reader/?storyId=3a0987f9-f0fa-4e38-9058-407d67106fe5&chapter=63001d20-6bef-4d32-897c-d68cb9a9c943
+[2026-06-06T10:31:53.981Z] [PROGRESS] Fetching content of chap 001 | Nhiệm vụ. URL: https://vuongtai.space/reader/?storyId=3a0987f9-f0fa-4e38-9058-407d67106fe5&chapter=63001d20-6bef-4d32-897c-d68cb9a9c943
+[2026-06-06T10:31:54.019Z] [PROGRESS] Done fetching content of chap 001 | Nhiệm vụ.
+[2026-06-06T10:31:54.019Z] [PROGRESS] Done fetching content of all chapters. Start saving file.
+[2026-06-06T10:31:54.373Z] [PROGRESS]: Saving content to epub format at D:\Phuong\CODE\Sou_tools\files\epubs
+[2026-06-06T10:31:54.374Z] [PROGRESS]: Saved successfully

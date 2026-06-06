@@ -3,7 +3,7 @@ import { SOURCE_TYPE } from "../constants/index.js";
 import { IFileSavingStrategy } from "../file_strategy/strategy.js";
 import { readCache, saveCache } from "../utils/cacheUtils.js";
 import logger from "../utils/logger.js";
-import { fetching, smartScapeFetching } from "../utils/scraperUtils.js";
+import { fetchingHTML, smartScapeFetching } from "../utils/scraperUtils.js";
 
 export interface IParserOptions extends Pick<IMetaDataReturns, "chapterUrls"> {
   title: string;
@@ -31,7 +31,7 @@ class Parser implements IParser {
   private _bookTitle: string = "";
   private _hashedFetchingMethod = {
     [SOURCE_TYPE.ATLANTIS_VIEN_DONG]: smartScapeFetching,
-    [SOURCE_TYPE.POTATO]: fetching,
+    [SOURCE_TYPE.POTATO]: fetchingHTML,
   };
 
   setParser(parser: IParser) {
@@ -52,11 +52,18 @@ class Parser implements IParser {
     this._bookTitle = value;
   }
 
-  protected getContent(html: string, contentQuery: string): string {
+  protected async getContent(
+    contentQuery: string,
+    title: string,
+    sourceType: string,
+    url: string
+  ): Promise<string> {
+    logger.log(`[PROGRESS] Fetching content of chap ${title}. URL: ${url}`);
+    const html = (await this._hashedFetchingMethod[sourceType](url)) ?? "";
     const $ = cheerio.load(html);
     const texts = $(contentQuery)
-      .map((i, el) => {
-        return `<p>${$(el).text().toString()}</p>`;
+      .map((_, el) => {
+        return `<p>${$(el).text()}</p>`;
       })
       .get();
 
@@ -85,8 +92,12 @@ class Parser implements IParser {
       }
 
       logger.log(`[PROGRESS] Fetching content of chap ${title}. URL: ${url}`);
-      const html = (await this._hashedFetchingMethod[sourceType](url)) ?? "";
-      const content = this.getContent(html, this._contentQuery);
+      const content = await this.getContent(
+        this.contentQuery,
+        title,
+        sourceType,
+        url
+      );
 
       if (title && (content ?? []).length > 0) {
         await saveCache(this._bookTitle, {

@@ -68,10 +68,24 @@ export async function unblockFetching(
     });
 }
 
-export async function fetching(url: string): Promise<string> {
+export async function fetchingHTML(url: string): Promise<string> {
   return await fetch(url)
     .then(async (res) => {
       const json = await res.text();
+      return json;
+    })
+    .catch((error) => {
+      logger.log("ERROR:", error);
+      throw error;
+    });
+}
+
+export async function fetchingJson(
+  url: string
+): Promise<{ [key: string]: any }> {
+  return await fetch(url)
+    .then(async (res) => {
+      const json = await res.json();
       return json;
     })
     .catch((error) => {
