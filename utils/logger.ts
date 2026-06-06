@@ -3,7 +3,8 @@ import path from "path";
 
 export class Logger {
   private stream: fs.WriteStream;
-  private _logFileDir = `files/logs/logger_${new Date().toISOString().slice(0, 19)}.txt`;
+  private timeStamp: string = new Date().toISOString().slice(0, 10);
+  private _logFileDir = `files/logs/logger_${this.timeStamp}.txt`;
 
   constructor() {
     const dir = path.dirname(this._logFileDir);
@@ -19,16 +20,12 @@ export class Logger {
     const timestamp = new Date().toISOString();
 
     const message = args
-      .map(arg =>
-        typeof arg === "string"
-          ? arg
-          : JSON.stringify(arg, null, 2)
+      .map((arg) =>
+        typeof arg === "string" ? arg : JSON.stringify(arg, null, 2)
       )
       .join(" ");
 
-    this.stream.write(
-      `[${timestamp}] ${message}\n`
-    );
+    this.stream.write(`[${timestamp}] ${message}\n`);
   }
 
   close() {

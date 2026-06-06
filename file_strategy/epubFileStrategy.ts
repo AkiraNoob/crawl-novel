@@ -1,24 +1,25 @@
+import type { Options } from "epub-gen-memory";
 import { EPub } from "epub-gen-memory";
-import type { Options, Chapter } from "epub-gen-memory";
-import { DOWNLOAD_TYPE } from "../constants/index.js";
-import { IFileSavingStrategy } from "./strategy.js";
 import fs from "fs";
 import path from "path";
+import { DOWNLOAD_TYPE } from "../constants/index.js";
 import logger from "../utils/logger.js";
+import FileSavingStrategy, { IFileSavingStrategy } from "./strategy.js";
 
-class EpubStrategy implements IFileSavingStrategy {
-  async execute(data: Chapter[], options: Options) {
+class EpubStrategy extends FileSavingStrategy implements IFileSavingStrategy {
+  async execute(cachedDir: string, options: Options) {
     try {
+      const data = await this.loadCachedContent(cachedDir);
       const content = await new EPub(
         { ...options },
         data.map((item) => ({
           title: item.title,
           content: item.content,
-        })),
+        }))
       ).genEpub();
 
       const dir = path.resolve(process.cwd(), `files/epubs`);
-      
+
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }

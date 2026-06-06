@@ -1,5 +1,5 @@
+import "dotenv/config";
 import logger from "./logger.js";
-import 'dotenv/config';
 
 const BROWSERLESS_TOKEN = process.env.BROWSERLESS_TOKEN;
 const getBrowserlessBaseUrl = (method: string) =>
@@ -24,11 +24,11 @@ export async function smartScapeFetching(url: string): Promise<string> {
     .then(async (res) => {
       if (res.status !== 200) {
         const text = await res.text();
-        logger.log("LoadSite text response: ", text);
+        // logger.log("LoadSite text response: ", text);
         return text;
       }
       const json = await res.json();
-      logger.log("LoadSite json response: ", json);
+      // logger.log("LoadSite json response: ", json);
       return json;
     })
     .then((res) => (typeof res === "string" ? res : res.content))
@@ -40,7 +40,7 @@ export async function smartScapeFetching(url: string): Promise<string> {
 
 export async function unblockFetching(
   url: string,
-  expandedBody: IExpandedBody,
+  expandedBody: IExpandedBody
 ): Promise<string> {
   return await fetch(getBrowserlessBaseUrl("unblock") + `&proxy=residential`, {
     method: "POST",
@@ -54,11 +54,11 @@ export async function unblockFetching(
     .then(async (res) => {
       if (res.status !== 200) {
         const text = await res.text();
-        logger.log("LoadSite text response: ", res);
+        // logger.log("LoadSite text response: ", res);
         return text;
       }
       const json = await res.json();
-      logger.log("LoadSite json response: ", json);
+      // logger.log("LoadSite json response: ", json);
       return json;
     })
     .then((res) => (typeof res === "string" ? res : res.content))
@@ -71,8 +71,7 @@ export async function unblockFetching(
 export async function fetching(url: string): Promise<string> {
   return await fetch(url)
     .then(async (res) => {
-      const json = await res.json();
-      logger.log("LoadSite json response: ", json);
+      const json = await res.text();
       return json;
     })
     .catch((error) => {

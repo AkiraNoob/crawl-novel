@@ -1,30 +1,42 @@
-import express from "express";
 import cors from "cors";
-import { FileSavingStrategy, EpubStrategy } from "./file_strategy/index.js";
-import { AtlantisVienDongParser } from "./parser/index.js";
+import "dotenv/config";
+import express from "express";
 import path from "path";
-import { fileURLToPath } from "url";
 import {
+  DOMAIN_TO_SOURCE_TYPE,
   DOWNLOAD_TYPE,
-  REVERSERD_SOURCE_TYPE,
   SOURCE_TYPE,
 } from "./constants/index.js";
+import { EpubStrategy, FileSavingStrategy } from "./file_strategy/index.js";
+import PotatoParser from "./parser/PotatoParser.js";
+import { AtlantisVienDongParser } from "./parser/index.js";
 import Parser from "./parser/parser.js";
 import logger from "./utils/logger.js";
-import 'dotenv/config';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const htmlPath = path.join(process.cwd());
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));
+app.use(express.static(htmlPath));
 app.use((req, res, next) => {
   req.setTimeout(60000);
   res.setTimeout(60000);
   next();
 });
+
+const setParser = (parser: Parser, sourceType: string) => {
+  switch (sourceType) {
+    case SOURCE_TYPE.ATLANTIS_VIEN_DONG:
+      parser.setParser(new AtlantisVienDongParser());
+      break;
+    case SOURCE_TYPE.POTATO:
+      parser.setParser(new PotatoParser());
+
+    default:
+      break;
+  }
+};
 
 app.post("/crawl", async (req, res) => {
   const fileSavingStrategy = new FileSavingStrategy();
@@ -33,7 +45,8 @@ app.post("/crawl", async (req, res) => {
   try {
     const { outputType, url, ...options } = req.body;
     const host = new URL(url).host;
-    const sourceType = REVERSERD_SOURCE_TYPE[host as keyof typeof REVERSERD_SOURCE_TYPE];
+    const sourceType =
+      DOMAIN_TO_SOURCE_TYPE[host as keyof typeof DOMAIN_TO_SOURCE_TYPE];
 
     switch (outputType) {
       case DOWNLOAD_TYPE.EPUB:
@@ -44,14 +57,7 @@ app.post("/crawl", async (req, res) => {
         break;
     }
 
-    switch (sourceType) {
-      case SOURCE_TYPE.ATLANTIS_VIEN_DONG:
-        parser.setParser(new AtlantisVienDongParser());
-        break;
-
-      default:
-        break;
-    }
+    setParser(parser, sourceType);
 
     if (!parser || !fileSavingStrategy) {
       throw new Error("Parser or File saving strategy not init");
@@ -70,16 +76,10 @@ app.post("/meta-data", async (req, res) => {
   try {
     const { url } = req.body;
     const host = new URL(url).host;
-    const sourceType = REVERSERD_SOURCE_TYPE[host as keyof typeof REVERSERD_SOURCE_TYPE];
+    const sourceType =
+      DOMAIN_TO_SOURCE_TYPE[host as keyof typeof DOMAIN_TO_SOURCE_TYPE];
 
-    switch (sourceType) {
-      case SOURCE_TYPE.ATLANTIS_VIEN_DONG:
-        parser.setParser(new AtlantisVienDongParser());
-        break;
-
-      default:
-        break;
-    }
+    setParser(parser, sourceType);
 
     if (!parser) {
       throw new Error("Parser not init");

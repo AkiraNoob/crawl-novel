@@ -1,110 +1,6 @@
-import * as cheerio from "cheerio";
+import crypto from "crypto";
 import fs from "fs";
-import fsPromise from "fs/promises";
 import path from "path";
-const TOKEN = "2UVZ9cRpTSYhgvH1a62966eb117fd3e098f693b7d89150d97";
-
-const getContent = async () => {
-  const contentQuery = 'span[style="font-weight: 400"]';
-
-  const chapter1 = await fsPromise.readFile(
-    "./public/docs/atlantis-chapter-1.txt",
-    "utf8",
-  );
-
-  const $ = cheerio.load(chapter1);
-
-  const title =
-    $("title").text() || $("meta[property='og:title']").attr("content");
-
-  const texts = $(contentQuery)
-    .map((i, el) => {
-      return `<p>${$(el).text().toString()}</p>`;
-    })
-    .get();
-
-  const dir = path.resolve(
-    process.cwd(),
-    `files/test/contents/AtlantisVienDong`,
-  );
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-
-  const filePath = path.join(dir, `${title}.txt`);
-
-  await fs.promises.writeFile(filePath, texts.join(""));
-};
-
-const getEntry = async () => {
-  // const entry = await fetch(
-  //   `https://production-sfo.browserless.io/chrome/unblock?blockAds=false&timeout=60000&token=${TOKEN}`,
-  //   {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       url: "https://atlantisviendong.com/truyen/sau-khi-toi-chet-truc-ma-tro-thanh-daddy/",
-  //       content: true,
-  //       waitForSelector: {
-  //         selector: ".uk-nav-sub li a",
-  //       },
-  //     }),
-  //   },
-  // )
-  //   .then(async (res) => {
-  //     if (res.status !== 200) {
-  //       const text = await res.text();
-  //       console.log("LoadSite text response: ", res);
-  //       return text;
-  //     }
-  //     const json = await res.json();
-  //     console.log("LoadSite json response: ", json);
-  //     return json;
-  //   })
-  //   .then((res) => (typeof res === "string" ? res : res.content))
-  //   .catch((error) => {
-  //     console.log("ERROR:", error);
-  //     throw error;
-  //   });
-
-  const entry = await fsPromise.readFile(
-    "./public/docs/atlantis-entry.txt",
-    "utf8",
-  );
-  const $ = cheerio.load(entry);
-
-  const title =
-    $("title").text() || $("meta[property='og:title']").attr("content");
-  const cover = $("meta[property='og:image']").attr("content");
-
-  const links = $(".uk-nav-sub li a");
-  const chapterUrls = links
-    .map((_, el) => {
-      return $(el).attr("href");
-    })
-    .get();
-
-  const dir = path.resolve(
-    process.cwd(),
-    `files/test/contents/AtlantisVienDong`,
-  );
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-
-  const filePath = path.join(dir, `${title}-meta-data.txt`);
-  // const htmlPath = path.join(dir, `${title}-html.txt`);
-
-  await fs.promises.writeFile(
-    filePath,
-    JSON.stringify({
-      title,
-      chapterUrls,
-    }),
-  );
-
-  // await fs.promises.writeFile(htmlPath, entry);
-};
 
 const fetchPHP = async () => {
   await fetch("https://atlantisviendong.com/wp-admin/admin-ajax.php", {
@@ -132,6 +28,142 @@ const fetchPHP = async () => {
     .catch((err) => console.error("Lỗi khi gọi Ajax:", err));
 };
 
-await getEntry();
+export function normalizeUrl(url) {
+  const u = new URL(url);
+
+  // Remove tracking params if desired
+  [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+  ].forEach((param) => u.searchParams.delete(param));
+
+  return u.toString();
+}
+
+function getCacheKey(url) {
+  return crypto.createHash("sha256").update(normalizeUrl(url)).digest("hex");
+}
+async function saveCacheFiles() {
+  const items = [
+    {
+      url: "https://atlantisviendong.com/chuong-1-anh-da-dien-tu-lau-roi/",
+      title: "Chương 1: Anh đã điên từ lâu rồi",
+      index: 1,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-2-truc-ma-giau-to/",
+      title: "Chương 2: Trúc mã giàu to!",
+      index: 2,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-3-may-dinh-vi-sieu-nho/",
+      title: "Chương 3: Máy định vị siêu nhỏ",
+      index: 3,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-4-chong-tuong-lai/",
+      title: "Chương 4: Chồng tương lai",
+      index: 4,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-5-the-gioi-khong-tuong/",
+      title: "Chương 5: Thế giới không tưởng",
+      index: 5,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-6-anh-em-chi-cot/",
+      title: "Chương 6: Anh em chí cốt!",
+      index: 6,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-7-duong-duong-chinh-chinh-buoc-vao-phong/",
+      title: "Chương 7: Đường đường chính chính bước vào phòng",
+      index: 7,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-8-di-hoc/",
+      title: "Chương 8: Đi học",
+      index: 8,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-9-tiec-chao-mung/",
+      title: "Chương 9: Tiệc chào mừng",
+      index: 9,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-10-anh-em-tot/",
+      title: "Chương 10: Anh em tốt!",
+      index: 10,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-11-ban-vong-nien/",
+      title: "Chương 11: Bạn vong niên",
+      index: 11,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-12-cocktail-trung-sua/",
+      title: "Chương 12: Cocktail trứng sữa",
+      index: 12,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-13-may-dinh-vi/",
+      title: "Chương 13: Máy định vị",
+      index: 13,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-14-he-thong-giam-sat/",
+      title: "Chương 14: Hệ thống giám sát",
+      index: 14,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-15-camera-bi-roi/",
+      title: "Chương 15: Camera bị rơi",
+      index: 15,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-16-phong-cua-cau-bi-lap-thiet-bi-giam-sat/",
+      title: "Chương 16: Phòng của cậu bị lắp thiết bị giám sát…",
+      index: 16,
+    },
+    {
+      url: "https://atlantisviendong.com/chuong-17-tong-giam-doc-hoac-xay-ra-chuyen-roi/",
+      title: "Chương 17: “Tổng giám đốc Hoắc xảy ra chuyện rồi!”",
+      index: 17,
+    },
+  ];
+
+  for (const item of items) {
+    const key = getCacheKey(item.url);
+    console.log(key);
+    const filePath = path.join(
+      "data/cache/Sau Khi Tôi Chết, Trúc Mã Trở Thành Daddy - Atlantis Viễn Đông",
+      `${key}.json`
+    );
+    const content = await fs.promises.readFile(
+      `files/contents/Sau Khi Tôi Chết, Trúc Mã Trở Thành Daddy - Atlantis Viễn Đông/${item.index}.txt`,
+      "utf8"
+    );
+
+    const data = {
+      url: item.url,
+      title: item.title,
+      content,
+      index: item.index,
+      cachedAt: new Date().toISOString(),
+    };
+
+    await fs.promises.writeFile(
+      filePath,
+      JSON.stringify(data, null, 2),
+      "utf8"
+    );
+  }
+}
+
+await saveCacheFiles();
+// await getEntry();
 // await getContent();
 // await fetchPHP();
