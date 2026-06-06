@@ -427,9 +427,10 @@ select option {
 }
 
 .chapter-list {
-  max-height: 140px;
+  max-height: 500px;
   overflow-y: auto;
   margin-top: 6px;
+  margin-bottom: 20px;
 }
 
 .chapter-item {

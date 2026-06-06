@@ -8,6 +8,8 @@ import Parser, { IParser, IParserOptions } from "./parser.js";
 
 class PotatoParser extends Parser implements IParser {
   private _metaDataQuery: string = "a[class='min-w-0 flex-1']";
+  private _FIXED_CONTENT_QUERY: string =
+    'p[class="min-w-0 whitespace-pre-wrap break-words overflow-hidden text-[17px] leading-7 text-zinc-900 dark:text-zinc-200 sm:text-[18px]"] span';
   private _URL_PREFIX = `https://${SOURCE_TYPE_TO_DOMAIN[SOURCE_TYPE.POTATO]}`;
 
   async execute(
@@ -23,7 +25,8 @@ class PotatoParser extends Parser implements IParser {
         contentQuery,
       } = options;
       this.bookTitle = bookTitle;
-      this.contentQuery = contentQuery;
+      // this.contentQuery = contentQuery;
+      this.contentQuery = this._FIXED_CONTENT_QUERY;
 
       let condition = false;
       while (!condition)

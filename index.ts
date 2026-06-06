@@ -3,30 +3,32 @@ import localStorageUtils, { ICrawlOptions } from "./utils/localStorageUtils.js";
 //define global variables
 const abortController = new AbortController();
 const downloadBtn = document.getElementById(
-  "btn-download",
+  "btn-download"
 ) as HTMLButtonElement;
 const cancelBtn = document.getElementById("btn-stop") as HTMLButtonElement;
 const crawlForm = document.getElementById("crawl-form") as HTMLFormElement;
 const btnLoadMetaData = document.getElementById(
-  "btn-load-meta-data",
+  "btn-load-meta-data"
 ) as HTMLButtonElement;
 const urlSelector = document.getElementById("url-selector") as HTMLInputElement;
 // const chaptersQuerySelector = document.getElementById("chapters-query-selector") as HTMLInputElement;
-const contentQuerySelector = document.getElementById("content-query-selector") as HTMLInputElement;
+const contentQuerySelector = document.getElementById(
+  "content-query-selector"
+) as HTMLInputElement;
 const novelTitle = document.getElementById("novel-title") as HTMLInputElement;
 const novelCover = document.getElementById("novel-cover") as HTMLInputElement;
 const downloadFormat = document.getElementById(
-  "crawl-form-fieldset",
+  "crawl-form-fieldset"
 ) as HTMLFieldSetElement;
 const chapterList = document.getElementById("chapter-list") as HTMLDivElement;
 const chapterSection = document.getElementById(
-  "chapters-section",
+  "chapters-section"
 ) as HTMLDivElement;
 const totalChapters = document.getElementById(
-  "total-chapters",
+  "total-chapters"
 ) as HTMLDivElement;
 const totalChaptersNum = document.getElementById(
-  "total-chapters-num",
+  "total-chapters-num"
 ) as HTMLDivElement;
 
 let novelData: ICrawlOptions = {
@@ -52,8 +54,8 @@ function reloadChapterLists() {
 function appendChapterLists() {
   const chapterUrls = novelData.chapterUrls;
 
-  if (chapterUrls.length > 0) {
-    chapterUrls.forEach((item, index) => {
+  if (chapterUrls?.length > 0) {
+    chapterUrls.forEach((item) => {
       const container = document.createElement("div");
       container.classList.add("chapter-item");
 
@@ -97,7 +99,7 @@ function populatedData() {
     novelCover.value = cover;
 
     const btn = document.getElementById(
-      "novel-cover-open-btn",
+      "novel-cover-open-btn"
     ) as HTMLButtonElement;
 
     btn.disabled = false;
@@ -113,15 +115,15 @@ function populatedData() {
 async function retrieveContent(
   abortSignal: AbortSignal,
   startCallback: () => void,
-  finallyCallback: () => void,
+  finallyCallback: () => void
 ) {
   const { url, ...crawlOptions } = novelData;
   const contentQuery = contentQuerySelector.value;
 
   const outputType = Array.from(
     downloadFormat.querySelectorAll(
-      'input[name="format"]',
-    ) as NodeListOf<HTMLInputElement>,
+      'input[name="format"]'
+    ) as NodeListOf<HTMLInputElement>
   ).find((el) => el.checked)?.value;
 
   startCallback();
@@ -135,7 +137,7 @@ async function retrieveContent(
         headers: {
           "Content-Type": "application/json",
         },
-      },
+      }
     )
     .then((res: { data: any }) => {
       const data = res.data;
@@ -157,7 +159,7 @@ async function retrieveContent(
 async function retrieveSiteMetaData(
   abortSignal: AbortSignal,
   startCallback: () => void,
-  finallyCallback: () => void,
+  finallyCallback: () => void
 ) {
   const url = urlSelector.value;
 
@@ -172,7 +174,7 @@ async function retrieveSiteMetaData(
         headers: {
           "Content-Type": "application/json",
         },
-      },
+      }
     )
     .then((res: { data: any }) => {
       const data = res.data;
@@ -232,12 +234,12 @@ crawlForm.addEventListener("submit", async (e) => {
   await retrieveContent(
     abortController.signal,
     () => toggleDisabled(downloadBtn, true),
-    () => toggleDisabled(downloadBtn, false),
+    () => toggleDisabled(downloadBtn, false)
   );
 });
 
 cancelBtn.addEventListener("click", () =>
-  abortController.abort("Fetch cancel: User cancel"),
+  abortController.abort("Fetch cancel: User cancel")
 );
 
 btnLoadMetaData.addEventListener("click", () => {
@@ -250,6 +252,6 @@ btnLoadMetaData.addEventListener("click", () => {
     () => {
       toggleDisabled(btnLoadMetaData, false);
       btnLoadMetaData.setAttribute("data-state", "stale");
-    },
+    }
   );
 });

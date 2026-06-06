@@ -72,6 +72,7 @@ export async function fetchingHTML(url: string): Promise<string> {
   return await fetch(url)
     .then(async (res) => {
       const json = await res.text();
+      logger.log(json);
       return json;
     })
     .catch((error) => {

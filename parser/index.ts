@@ -1,4 +1,6 @@
 import AtlantisVienDongParser from "./AtlantisVienDongParser.js";
+import PotatoParser from "./PotatoParser.js";
+import VuongTaiParser from "./VuongTaiParser.js";
 import Parser from "./parser.js";
 
-export { Parser, AtlantisVienDongParser };
+export { AtlantisVienDongParser, Parser, PotatoParser, VuongTaiParser };

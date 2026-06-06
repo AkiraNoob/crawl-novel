@@ -1,97 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Novel Crawler</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/a61c46a1d0.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Novel Crawler</title>
-  <link rel="stylesheet" href="./style.css" />
-  <script src="https://kit.fontawesome.com/a61c46a1d0.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
-</head>
-
-<body>
-  <!-- Header -->
-  <div class="header">
-    <div class="header-icon">📖</div>
-    <div>
-      <h1>Novel Crawler</h1>
-      <p id="header-url">No page loaded</p>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="header-icon">📖</div>
+      <div>
+        <h1>Novel Crawler</h1>
+        <p id="header-url">No page loaded</p>
+      </div>
+      <div class="status-dot idle" id="status-dot" title="Idle"></div>
     </div>
-    <div class="status-dot idle" id="status-dot" title="Idle"></div>
-  </div>
 
-  <!-- ══ TAB: CRAWL ══ -->
-  <form class="tab-panel active" id="crawl-form">
-    <!-- Selector config (quick) -->
-    <div class="section">
-      <div class="section-title">Content Selector</div>
-      <label>URL*</label>
-      <input required type="url" id="url-selector" placeholder="https://example.com" />
+    <!-- ══ TAB: CRAWL ══ -->
+    <form class="tab-panel active" id="crawl-form">
+      <!-- Selector config (quick) -->
+      <div class="section">
+        <div class="section-title">Content Selector</div>
+        <label>URL*</label>
+        <input
+          required
+          type="url"
+          id="url-selector"
+          placeholder="https://example.com"
+        />
 
-      <!-- <label>Chapters query*</label>
+        <!-- <label>Chapters query*</label>
       <input required type="text" id="chapters-query-selector" placeholder="Enter your query here" /> -->
 
-      <label>Novel title (for filename)</label>
-      <input type="text" id="novel-title" placeholder="Auto-detected from page…" />
+        <label>Novel title (for filename)</label>
+        <input
+          type="text"
+          id="novel-title"
+          placeholder="Auto-detected from page…"
+        />
 
-      <label>Novel cover</label>
-      <div class="input-container">
-        <input type="url" id="novel-cover" placeholder="Auto-detected from page…" />
-        <button type="button" disabled id="novel-cover-open-btn" class="btn-secondary">
-          <i class="icon fa-solid fa-arrow-up-right-from-square"></i>
-        </button>
+        <label>Novel cover</label>
+        <div class="input-container">
+          <input
+            type="url"
+            id="novel-cover"
+            placeholder="Auto-detected from page…"
+          />
+          <button
+            type="button"
+            disabled
+            id="novel-cover-open-btn"
+            class="btn-secondary"
+          >
+            <i class="icon fa-solid fa-arrow-up-right-from-square"></i>
+          </button>
+        </div>
+
+        <label>Content query*</label>
+        <input
+          required
+          type="text"
+          id="content-query-selector"
+          placeholder="Enter your query here"
+        />
+        <span
+          ><i
+            >Only these domains (AtlantisVienDong) require this field. For the
+            others, just type in anything</i
+          ></span
+        >
       </div>
 
-      <label>Content query*</label>
-      <input required type="text" id="content-query-selector" placeholder="Enter your query here" />
-    </div>
-
-    <!-- Download format -->
-    <div class="section">
-      <div class="section-title">Output Format</div>
-      <fieldset id="crawl-form-fieldset" form="crawl-form" class="format-pills">
-        <div>
-          <input required checked type="radio" id="epub" name="format" value="epub" />
-          <label for="epub">EPUB</label>
-        </div>
-        <div>
+      <!-- Download format -->
+      <div class="section">
+        <div class="section-title">Output Format</div>
+        <fieldset
+          id="crawl-form-fieldset"
+          form="crawl-form"
+          class="format-pills"
+        >
+          <div>
+            <input
+              required
+              checked
+              type="radio"
+              id="epub"
+              name="format"
+              value="epub"
+            />
+            <label for="epub">EPUB</label>
+          </div>
+          <!-- <div>
           <input required type="radio" id="pdf" name="format" value="pdf" />
           <label for="pdf">PDF</label>
         </div>
         <div>
           <input required type="radio" id="word" name="format" value="word" />
           <label for="word">WORD</label>
-        </div>
-      </fieldset>
-    </div>
-
-    <!-- Start button -->
-    <div class="section">
-      <span><b>PLEASE CLICK "Retrieve novel meta data" BEFORE CLICKING "Download". It must show the chapter urls list
-          below before the scrapper can download the novel successfully</b></span>
-
-      <button style="width: 100%; margin-top: 8px;" type="button" id="btn-load-meta-data" class="btn-secondary">
-        <i data-state="stale" class="icon fa-solid fa-arrow-rotate-right"></i>
-        <i data-state="loading" class="icon fa-solid fa-spinner fa-spin"></i>
-        Retrieve novel meta data
-      </button>
-
-      <button type="submit" style="margin-top: 8px" class="btn-primary" id="btn-download">
-        <i data-state="stale" class="icon fa-solid fa-arrow-down"></i>
-        <i data-state="loading" class="icon fa-solid fa-spinner fa-spin"></i>
-        Download
-      </button>
-      <div class="btn-row" style="margin-top: 8px">
-        <button type="button" class="btn-danger" id="btn-stop">
-          ■ Stop
-        </button>
+        </div> -->
+        </fieldset>
       </div>
-    </div>
-  </form>
 
-  <!-- Progress section (shared across tabs) -->
-  <!-- <div class="progress-section" id="progress-section">
+      <!-- Start button -->
+      <div class="section">
+        <span
+          ><b
+            >PLEASE CLICK "Retrieve novel meta data" BEFORE CLICKING "Download".
+            It must show the chapter urls list below before the scrapper can
+            download the novel successfully</b
+          ></span
+        >
+
+        <button
+          style="width: 100%; margin-top: 8px"
+          type="button"
+          id="btn-load-meta-data"
+          class="btn-secondary"
+        >
+          <i data-state="stale" class="icon fa-solid fa-arrow-rotate-right"></i>
+          <i data-state="loading" class="icon fa-solid fa-spinner fa-spin"></i>
+          Retrieve novel meta data
+        </button>
+
+        <button
+          type="submit"
+          style="margin-top: 8px"
+          class="btn-primary"
+          id="btn-download"
+        >
+          <i data-state="stale" class="icon fa-solid fa-arrow-down"></i>
+          <i data-state="loading" class="icon fa-solid fa-spinner fa-spin"></i>
+          Download
+        </button>
+        <div class="btn-row" style="margin-top: 8px">
+          <button type="button" class="btn-danger" id="btn-stop">■ Stop</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Progress section (shared across tabs) -->
+    <!-- <div class="progress-section" id="progress-section">
       <div class="section-title">Progress</div>
       <div class="progress-bar-track">
         <div class="progress-bar-fill" id="progress-fill"></div>
@@ -106,18 +161,19 @@
       <div class="progress-log" id="progress-log"></div>
     </div> -->
 
-  <!-- Chapters list section -->
-  <div class="chapters-section" id="chapters-section">
-    <div class="section-title" style="padding-top: 12px">
-      Collected Chapters
-      <span id="total-chapters" class="total-chapter">(Total Chapter:
-        <span id="total-chapters-num"></span>
-        )</span>
+    <!-- Chapters list section -->
+    <div class="chapters-section" id="chapters-section">
+      <div class="section-title" style="padding-top: 12px">
+        Collected Chapters
+        <span id="total-chapters" class="total-chapter"
+          >(Total Chapter:
+          <span id="total-chapters-num"></span>
+          )</span
+        >
+      </div>
+      <div class="chapter-list" id="chapter-list"></div>
     </div>
-    <div class="chapter-list" id="chapter-list"></div>
-  </div>
 
-  <script type="module" src="./dist/index.js"></script>
-</body>
-
+    <script type="module" src="./dist/index.js"></script>
+  </body>
 </html>
