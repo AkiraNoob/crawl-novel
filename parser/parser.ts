@@ -63,7 +63,12 @@ class Parser implements IParser {
     const $ = cheerio.load(html);
     const texts = $(contentQuery)
       .map((_, el) => {
-        return `<p>${$(el).text()}</p>`;
+        const text = $(el)
+          .contents()
+          .filter((_, node) => node.type === "text")
+          .text()
+          .trim();
+        return `<p>${text}</p>`;
       })
       .get();
 
@@ -91,7 +96,6 @@ class Parser implements IParser {
         continue;
       }
 
-      logger.log(`[PROGRESS] Fetching content of chap ${title}. URL: ${url}`);
       const content = await this.getContent(
         this.contentQuery,
         title,

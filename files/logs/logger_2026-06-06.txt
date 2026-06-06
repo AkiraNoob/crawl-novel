@@ -10,3 +10,501 @@ Thợ gõ: Dờ</span></p></div><div class="grid gap-3 sm:grid-cols-2"><a class=
 [2026-06-06T11:03:33.243Z] Server running at port 3000
 [2026-06-06T11:03:54.701Z] Server running at port 3000
 [2026-06-06T11:05:03.573Z] Server running at port 3000
+[2026-06-06T11:18:08.318Z] Server running at port 3000
+[2026-06-06T11:18:14.826Z] Get meta data: []
+[2026-06-06T11:19:35.339Z] Server running at port 3000
+[2026-06-06T11:20:29.291Z] Get meta data: [
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-1/",
+    "title": "Anh trai – Chương 1",
+    "index": 1
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-2/",
+    "title": "Anh trai – Chương 2",
+    "index": 2
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-3/",
+    "title": "Anh trai – Chương 3",
+    "index": 3
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-4/",
+    "title": "Anh trai – Chương 4",
+    "index": 4
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-5/",
+    "title": "Anh trai – Chương 5",
+    "index": 5
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-6/",
+    "title": "Anh trai – Chương 6",
+    "index": 6
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-7/",
+    "title": "Anh trai – Chương 7",
+    "index": 7
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-8/",
+    "title": "Anh trai – Chương 8",
+    "index": 8
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-9/",
+    "title": "Anh trai – Chương 9",
+    "index": 9
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-10/",
+    "title": "Anh trai – Chương 10",
+    "index": 10
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-11/",
+    "title": "Anh trai – Chương 11",
+    "index": 11
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-12/",
+    "title": "Anh trai – Chương 12",
+    "index": 12
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-13/",
+    "title": "Anh trai – Chương 13",
+    "index": 13
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-14/",
+    "title": "Anh trai – Chương 14",
+    "index": 14
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-15/",
+    "title": "Anh trai – Chương 15",
+    "index": 15
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-16/",
+    "title": "Anh trai – Chương 16",
+    "index": 16
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-17/",
+    "title": "Anh trai – Chương 17",
+    "index": 17
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-18/",
+    "title": "Anh trai – Chương 18",
+    "index": 18
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-19/",
+    "title": "Anh trai – Chương 19",
+    "index": 19
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-20/",
+    "title": "Anh trai – Chương 20",
+    "index": 20
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-21/",
+    "title": "Anh trai – Chương 21",
+    "index": 21
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-22/",
+    "title": "Anh trai – Chương 22",
+    "index": 22
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-23/",
+    "title": "Anh trai – Chương 23",
+    "index": 23
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-24/",
+    "title": "Anh trai – Chương 24",
+    "index": 24
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-25/",
+    "title": "Anh trai – Chương 25",
+    "index": 25
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-26/",
+    "title": "Anh trai – Chương 26",
+    "index": 26
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-27/",
+    "title": "Anh trai – Chương 27",
+    "index": 27
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-28/",
+    "title": "Anh trai – Chương 28",
+    "index": 28
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-29/",
+    "title": "Anh trai – Chương 29",
+    "index": 29
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-30/",
+    "title": "Anh trai – Chương 30",
+    "index": 30
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-31/",
+    "title": "Anh trai – Chương 31",
+    "index": 31
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-32/",
+    "title": "Anh trai – Chương 32",
+    "index": 32
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-33/",
+    "title": "Anh trai – Chương 33",
+    "index": 33
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-34/",
+    "title": "Anh trai – Chương 34",
+    "index": 34
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-35/",
+    "title": "Anh trai – Chương 35",
+    "index": 35
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-36/",
+    "title": "Anh trai – Chương 36",
+    "index": 36
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-37/",
+    "title": "Anh trai – Chương 37",
+    "index": 37
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-38/",
+    "title": "Anh trai – Chương 38",
+    "index": 38
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-39/",
+    "title": "Anh trai – Chương 39",
+    "index": 39
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-40/",
+    "title": "Anh trai – Chương 40",
+    "index": 40
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-41/",
+    "title": "Anh trai – Chương 41",
+    "index": 41
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-42/",
+    "title": "Anh trai – Chương 42",
+    "index": 42
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-43/",
+    "title": "Anh trai – Chương 43",
+    "index": 43
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-44/",
+    "title": "Anh trai – Chương 44",
+    "index": 44
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-45/",
+    "title": "Anh trai – Chương 45",
+    "index": 45
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-46/",
+    "title": "Anh trai – Chương 46",
+    "index": 46
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-47/",
+    "title": "Anh trai – Chương 47",
+    "index": 47
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-48/",
+    "title": "Anh trai – Chương 48",
+    "index": 48
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-49/",
+    "title": "Anh trai – Chương 49",
+    "index": 49
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-50/",
+    "title": "Anh trai – Chương 50",
+    "index": 50
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-51/",
+    "title": "Anh trai – Chương 51",
+    "index": 51
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-52/",
+    "title": "Anh trai – Chương 52",
+    "index": 52
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-53/",
+    "title": "Anh trai – Chương 53",
+    "index": 53
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-54/",
+    "title": "Anh trai – Chương 54",
+    "index": 54
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-55/",
+    "title": "Anh trai – Chương 55",
+    "index": 55
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-56/",
+    "title": "Anh trai – Chương 56",
+    "index": 56
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-57/",
+    "title": "Anh trai – Chương 57",
+    "index": 57
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-58/",
+    "title": "Anh trai – Chương 58",
+    "index": 58
+  },
+  {
+    "url": "https://atlantisviendong.com/anh-trai-chuong-59/",
+    "title": "Anh trai – Chương 59",
+    "index": 59
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-1/",
+    "title": "Làng Đầm Rồng – 1",
+    "index": 60
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-2/",
+    "title": "Làng Đầm Rồng – 2",
+    "index": 61
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-3/",
+    "title": "Làng Đầm Rồng – 3",
+    "index": 62
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-4/",
+    "title": "Làng Đầm Rồng – 4",
+    "index": 63
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-5/",
+    "title": "Làng Đầm Rồng – 5",
+    "index": 64
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-6/",
+    "title": "Làng Đầm Rồng – 6",
+    "index": 65
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-7/",
+    "title": "Làng Đầm Rồng – 7",
+    "index": 66
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-8/",
+    "title": "Làng Đầm Rồng – 8",
+    "index": 67
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-9/",
+    "title": "Làng Đầm Rồng – 9",
+    "index": 68
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-10/",
+    "title": "Làng Đầm Rồng – 10",
+    "index": 69
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-11/",
+    "title": "Làng Đầm Rồng – 11",
+    "index": 70
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-12/",
+    "title": "Làng Đầm Rồng – 12",
+    "index": 71
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-13/",
+    "title": "Làng Đầm Rồng – 13",
+    "index": 72
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-14/",
+    "title": "Làng Đầm Rồng – 14",
+    "index": 73
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-15/",
+    "title": "Làng Đầm Rồng – 15",
+    "index": 74
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-16/",
+    "title": "Làng Đầm Rồng – 16",
+    "index": 75
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-17/",
+    "title": "Làng Đầm Rồng – 17",
+    "index": 76
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-18/",
+    "title": "Làng Đầm Rồng – 18",
+    "index": 77
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-19/",
+    "title": "Làng Đầm Rồng – 19",
+    "index": 78
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-20/",
+    "title": "Làng Đầm Rồng – 20",
+    "index": 79
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-21/",
+    "title": "Làng Đầm Rồng – 21",
+    "index": 80
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-22/",
+    "title": "Làng Đầm Rồng – 22",
+    "index": 81
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-23/",
+    "title": "Làng Đầm Rồng – 23",
+    "index": 82
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-24/",
+    "title": "Làng Đầm Rồng – 24",
+    "index": 83
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-25/",
+    "title": "Làng Đầm Rồng – 25",
+    "index": 84
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-26/",
+    "title": "Làng Đầm Rồng – 26",
+    "index": 85
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-27/",
+    "title": "Làng Đầm Rồng – 27",
+    "index": 86
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-28/",
+    "title": "Làng Đầm Rồng – 28",
+    "index": 87
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-29/",
+    "title": "Làng Đầm Rồng – 29",
+    "index": 88
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-30/",
+    "title": "Làng Đầm Rồng – 30",
+    "index": 89
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-31/",
+    "title": "Làng Đầm Rồng – 31",
+    "index": 90
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-32/",
+    "title": "Làng Đầm Rồng – 32",
+    "index": 91
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-33/",
+    "title": "Làng Đầm Rồng – 33",
+    "index": 92
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-34/",
+    "title": "Làng Đầm Rồng – 34",
+    "index": 93
+  },
+  {
+    "url": "https://atlantisviendong.com/lang-dam-rong-35/",
+    "title": "Làng Đầm Rồng – 35",
+    "index": 94
+  }
+]
+[2026-06-06T11:23:55.083Z] [PROGRESS] Check if content of chap Làng Đầm Rồng – 26 has been stored or not.
+[2026-06-06T11:23:55.084Z] [PROGRESS] Fetching content of chap Làng Đầm Rồng – 26. URL: https://atlantisviendong.com/lang-dam-rong-26/
+[2026-06-06T11:23:55.085Z] [PROGRESS] Fetching content of chap Làng Đầm Rồng – 26. URL: https://atlantisviendong.com/lang-dam-rong-26/
+[2026-06-06T11:24:51.778Z] [PROGRESS] Done fetching content of chap Làng Đầm Rồng – 26.
+[2026-06-06T11:24:51.778Z] [PROGRESS] Check if content of chap Làng Đầm Rồng – 35 has been stored or not.
+[2026-06-06T11:24:51.778Z] [PROGRESS] Fetching content of chap Làng Đầm Rồng – 35. URL: https://atlantisviendong.com/lang-dam-rong-35/
+[2026-06-06T11:24:51.778Z] [PROGRESS] Fetching content of chap Làng Đầm Rồng – 35. URL: https://atlantisviendong.com/lang-dam-rong-35/
+[2026-06-06T11:25:52.011Z] [PROGRESS] Cannot get content of chap Làng Đầm Rồng – 35.
+[2026-06-06T11:25:52.011Z] [PROGRESS] Check if content of chap Làng Đầm Rồng – 26 has been stored or not.
+[2026-06-06T11:25:52.014Z] [PROGRESS] Done get the cached content of chap Làng Đầm Rồng – 26.
+[2026-06-06T11:25:52.014Z] [PROGRESS] Check if content of chap Làng Đầm Rồng – 35 has been stored or not.
+[2026-06-06T11:25:52.014Z] [PROGRESS] Fetching content of chap Làng Đầm Rồng – 35. URL: https://atlantisviendong.com/lang-dam-rong-35/
+[2026-06-06T11:25:52.014Z] [PROGRESS] Fetching content of chap Làng Đầm Rồng – 35. URL: https://atlantisviendong.com/lang-dam-rong-35/
+[2026-06-06T11:26:52.225Z] [PROGRESS] Cannot get content of chap Làng Đầm Rồng – 35.
+[2026-06-06T11:26:52.226Z] [PROGRESS] Check if content of chap Làng Đầm Rồng – 26 has been stored or not.
+[2026-06-06T11:26:52.226Z] [PROGRESS] Done get the cached content of chap Làng Đầm Rồng – 26.
+[2026-06-06T11:26:52.226Z] [PROGRESS] Check if content of chap Làng Đầm Rồng – 35 has been stored or not.
+[2026-06-06T11:26:52.226Z] [PROGRESS] Fetching content of chap Làng Đầm Rồng – 35. URL: https://atlantisviendong.com/lang-dam-rong-35/
+[2026-06-06T11:26:52.226Z] [PROGRESS] Fetching content of chap Làng Đầm Rồng – 35. URL: https://atlantisviendong.com/lang-dam-rong-35/
+[2026-06-06T11:27:29.335Z] [PROGRESS] Done fetching content of chap Làng Đầm Rồng – 35.
+[2026-06-06T11:27:29.335Z] [PROGRESS] Done fetching content of all chapters. Start saving file.
+[2026-06-06T11:27:29.906Z] [PROGRESS]: Saving content to epub format at D:\Phuong\CODE\Sou_tools\files\epubs
+[2026-06-06T11:27:29.908Z] [PROGRESS]: Saved successfully
