@@ -2,11 +2,10 @@
   "name": "crawler-app",
   "type": "module",
   "scripts": {
-    "postinstall": "cp .env.example .env",
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "tsx watch server.ts",
-    "sou": "npm i && rm -rf dist && npm run build && npm start"
+    "sou": "rm -rf dist && npm run build && npm start"
   },
   "dependencies": {
     "cheerio": "^1.2.0",
