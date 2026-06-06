@@ -1,8 +1,9 @@
 import * as cheerio from "cheerio";
+import { SOURCE_TYPE } from "../constants/index.js";
 import { IFileSavingStrategy } from "../file_strategy/strategy.js";
 import { readCache, saveCache } from "../utils/cacheUtils.js";
 import logger from "../utils/logger.js";
-import { smartScapeFetching } from "../utils/scraperUtils.js";
+import { fetching, smartScapeFetching } from "../utils/scraperUtils.js";
 
 export interface IParserOptions extends Pick<IMetaDataReturns, "chapterUrls"> {
   title: string;
@@ -28,6 +29,10 @@ class Parser implements IParser {
   _parser: IParser | undefined;
   private _contentQuery: string = "";
   private _bookTitle: string = "";
+  private _hashedFetchingMethod = {
+    [SOURCE_TYPE.ATLANTIS_VIEN_DONG]: smartScapeFetching,
+    [SOURCE_TYPE.POTATO]: fetching,
+  };
 
   setParser(parser: IParser) {
     this._parser = parser;
@@ -59,7 +64,8 @@ class Parser implements IParser {
   }
 
   protected async loopGetContent(
-    chapterUrls: IMetaDataReturns["chapterUrls"]
+    chapterUrls: IMetaDataReturns["chapterUrls"],
+    sourceType: string
   ): Promise<boolean> {
     let succeed = true;
 
@@ -79,7 +85,7 @@ class Parser implements IParser {
       }
 
       logger.log(`[PROGRESS] Fetching content of chap ${title}. URL: ${url}`);
-      const html = (await smartScapeFetching(url)) ?? "";
+      const html = (await this._hashedFetchingMethod[sourceType](url)) ?? "";
       const content = this.getContent(html, this._contentQuery);
 
       if (title && (content ?? []).length > 0) {

@@ -28,7 +28,8 @@ class PotatoParser extends Parser implements IParser {
       const bookContents: Chapter[] = [];
 
       let condition = false;
-      while (!condition) condition = await this.loopGetContent(chapterUrls);
+      while (!condition)
+        condition = await this.loopGetContent(chapterUrls, SOURCE_TYPE.POTATO);
 
       logger.log(
         `[PROGRESS] Done fetching content of all chapters. Start saving file.`

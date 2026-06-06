@@ -25,7 +25,11 @@ class AtlantisVienDongParser extends Parser implements IParser {
       this.contentQuery = contentQuery;
 
       let condition = false;
-      while (!condition) condition = await this.loopGetContent(chapterUrls);
+      while (!condition)
+        condition = await this.loopGetContent(
+          chapterUrls,
+          SOURCE_TYPE.ATLANTIS_VIEN_DONG
+        );
 
       logger.log(
         `[PROGRESS] Done fetching content of all chapters. Start saving file.`

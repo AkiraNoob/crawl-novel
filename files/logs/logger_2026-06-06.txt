@@ -688,3 +688,16 @@
 [2026-06-06T08:41:03.266Z] Server running at port 3000
 [2026-06-06T08:45:01.542Z] Server running at port 3000
 [2026-06-06T08:45:13.680Z] Server running at port 3000
+[2026-06-06T09:20:34.242Z] Server running at port 3000
+[2026-06-06T09:21:02.808Z] [PROGRESS] Check if content of chap 🐲🐱Quyển 1: Tam Thập Công Danh - Một đóa hoa trong trắng has been stored or not.
+[2026-06-06T09:21:02.811Z] [PROGRESS] Fetching content of chap 🐲🐱Quyển 1: Tam Thập Công Danh - Một đóa hoa trong trắng. URL: https://khoaitay.cc/chapter/1478
+[2026-06-06T09:21:03.056Z] [PROGRESS] Done fetching content of chap 🐲🐱Quyển 1: Tam Thập Công Danh - Một đóa hoa trong trắng.
+[2026-06-06T09:21:03.056Z] [PROGRESS] Check if content of chap Ngoại truyện - Mối duyên hiện đại (3) has been stored or not.
+[2026-06-06T09:21:03.057Z] [PROGRESS] Fetching content of chap Ngoại truyện - Mối duyên hiện đại (3). URL: https://khoaitay.cc/chapter/1706
+[2026-06-06T09:21:03.579Z] [PROGRESS] Done fetching content of chap Ngoại truyện - Mối duyên hiện đại (3).
+[2026-06-06T09:21:03.579Z] [PROGRESS] Check if content of chap Ngoại truyện phúc lợi: Nhật ký cải trang vi hành của Long Meo has been stored or not.
+[2026-06-06T09:21:03.579Z] [PROGRESS] Fetching content of chap Ngoại truyện phúc lợi: Nhật ký cải trang vi hành của Long Meo. URL: https://khoaitay.cc/chapter/1707
+[2026-06-06T09:21:04.240Z] [PROGRESS] Done fetching content of chap Ngoại truyện phúc lợi: Nhật ký cải trang vi hành của Long Meo.
+[2026-06-06T09:21:04.240Z] [PROGRESS] Done fetching content of all chapters. Start saving file.
+[2026-06-06T09:21:04.754Z] [PROGRESS]: Saving content to epub format at D:\Phuong\CODE\Sou_tools\files\epubs
+[2026-06-06T09:21:04.756Z] [PROGRESS]: Saved successfully
