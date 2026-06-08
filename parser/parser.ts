@@ -31,7 +31,7 @@ class Parser implements IParser {
   private _bookTitle: string = "";
   private _hashedFetchingMethod = {
     [SOURCE_TYPE.ATLANTIS_VIEN_DONG]: smartScapeFetching,
-    [SOURCE_TYPE.POTATO]: fetchingHTML,
+    [SOURCE_TYPE.POTATO]: fetchingHTML
   };
 
   setParser(parser: IParser) {
@@ -52,16 +52,10 @@ class Parser implements IParser {
     this._bookTitle = value;
   }
 
-  protected async getContent(
-    contentQuery: string,
-    title: string,
-    sourceType: string,
-    url: string
-  ): Promise<string> {
-    logger.log(`[PROGRESS] Fetching content of chap ${title}. URL: ${url}`);
+  protected async getContent(sourceType: string, url: string): Promise<string> {
     const html = (await this._hashedFetchingMethod[sourceType](url)) ?? "";
     const $ = cheerio.load(html);
-    const texts = $(contentQuery)
+    const texts = $(this._contentQuery)
       .map((_, el) => {
         const text = $(el)
           .contents()
@@ -96,19 +90,15 @@ class Parser implements IParser {
         continue;
       }
 
-      const content = await this.getContent(
-        this.contentQuery,
-        title,
-        sourceType,
-        url
-      );
+      logger.log(`[PROGRESS] Fetching content of chap ${title}. URL: ${url}`);
+      const content = await this.getContent(sourceType, url);
 
       if (title && (content ?? []).length > 0) {
         await saveCache(this._bookTitle, {
           url,
           title,
           content,
-          index,
+          index
         });
 
         logger.log(`[PROGRESS] Done fetching content of chap ${title}.`);

@@ -11,13 +11,9 @@ class VuongTaiParser extends Parser implements IParser {
   }/api/public`;
 
   protected async getContent(
-    _contentQuery: string,
-    title: string,
     _sourceType: string,
     url: string
   ): Promise<string> {
-    logger.log(`[PROGRESS] Fetching content of chap ${title}. URL: ${url}`);
-
     const _url = new URL(url);
     const chapterId = _url.searchParams.get("chapter");
 
@@ -56,7 +52,7 @@ class VuongTaiParser extends Parser implements IParser {
         title: bookTitle,
         cover: bookCover,
         chapterUrls,
-        contentQuery,
+        contentQuery
       } = options;
       this.bookTitle = bookTitle;
       this.contentQuery = contentQuery;
@@ -72,7 +68,7 @@ class VuongTaiParser extends Parser implements IParser {
         title: bookTitle,
         cover: bookCover,
         lang: "vi",
-        publisher: SOURCE_TYPE.ATLANTIS_VIEN_DONG,
+        publisher: SOURCE_TYPE.ATLANTIS_VIEN_DONG
       });
     } catch (error) {
       logger.log("ERROR getContent:", error);
@@ -107,10 +103,10 @@ class VuongTaiParser extends Parser implements IParser {
         }[]) ?? []
       ).map((item) => ({
         index: item.order_number,
-        title: item.title,
+        title: `Chương ${item.order_number}: ${item.title}`,
         url: `https://${
           SOURCE_TYPE_TO_DOMAIN[SOURCE_TYPE.VUONG_TAI]
-        }/reader/?storyId=${novelId}&chapter=${item.id}`,
+        }/reader/?storyId=${novelId}&chapter=${item.id}`
       }));
 
       logger.log(
@@ -118,14 +114,14 @@ class VuongTaiParser extends Parser implements IParser {
         JSON.stringify({
           chapterUrlsLength: chapterUrls.length,
           title,
-          cover,
+          cover
         })
       );
 
       return {
         title,
         cover,
-        chapterUrls,
+        chapterUrls
       };
     } catch (error) {
       logger.log("ERROR getMetaData:", error);

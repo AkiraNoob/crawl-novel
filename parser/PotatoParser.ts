@@ -22,7 +22,7 @@ class PotatoParser extends Parser implements IParser {
         title: bookTitle,
         cover: bookCover,
         chapterUrls,
-        contentQuery,
+        contentQuery
       } = options;
       this.bookTitle = bookTitle;
       // this.contentQuery = contentQuery;
@@ -39,7 +39,7 @@ class PotatoParser extends Parser implements IParser {
         title: bookTitle,
         cover: bookCover,
         lang: "vi",
-        publisher: SOURCE_TYPE.ATLANTIS_VIEN_DONG,
+        publisher: SOURCE_TYPE.ATLANTIS_VIEN_DONG
       });
     } catch (error) {
       logger.log("ERROR getContent:", error);
@@ -64,8 +64,9 @@ class PotatoParser extends Parser implements IParser {
         .map((_, el) => {
           return {
             url: this._URL_PREFIX + $(el).attr("href") || "",
-            title: $(el).children("h3").text(),
-            index: _ + 1,
+            title:
+              $(el).children("p").text() + " " + $(el).children("h3").text(),
+            index: _ + 1
           };
         })
         .get();
@@ -75,14 +76,14 @@ class PotatoParser extends Parser implements IParser {
         JSON.stringify({
           chapterUrlsLength: chapterUrls.length,
           title,
-          cover,
+          cover
         })
       );
 
       return {
         title,
         cover,
-        chapterUrls,
+        chapterUrls
       };
     } catch (error) {
       logger.log("ERROR getMetaData:", error);

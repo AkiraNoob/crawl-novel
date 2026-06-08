@@ -19,7 +19,7 @@ class AtlantisVienDongParser extends Parser implements IParser {
         title: bookTitle,
         cover: bookCover,
         chapterUrls,
-        contentQuery,
+        contentQuery
       } = options;
       this.bookTitle = bookTitle;
       this.contentQuery = contentQuery;
@@ -39,7 +39,7 @@ class AtlantisVienDongParser extends Parser implements IParser {
         title: bookTitle,
         cover: bookCover,
         lang: "vi",
-        publisher: SOURCE_TYPE.ATLANTIS_VIEN_DONG,
+        publisher: SOURCE_TYPE.ATLANTIS_VIEN_DONG
       });
     } catch (error) {
       logger.log("ERROR getContent:", error);
@@ -52,8 +52,8 @@ class AtlantisVienDongParser extends Parser implements IParser {
       const html = await unblockFetching(url, {
         waitForSelector: {
           selector: this._metaDataQuery,
-          timeout: 60000,
-        },
+          timeout: 60000
+        }
       });
       const $ = cheerio.load(html);
 
@@ -68,7 +68,7 @@ class AtlantisVienDongParser extends Parser implements IParser {
           return {
             url: $(el).attr("href") || "",
             title: $(el).text(),
-            index: _ + 1,
+            index: _ + 1
           };
         })
         .get() as IMetaDataReturns["chapterUrls"];
@@ -78,7 +78,7 @@ class AtlantisVienDongParser extends Parser implements IParser {
       return {
         title,
         cover,
-        chapterUrls,
+        chapterUrls
       };
     } catch (error) {
       logger.log("ERROR getMetaData:", error);
